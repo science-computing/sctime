@@ -18,12 +18,12 @@
 (%1)</translation>
     </message>
     <message>
-        <location filename="conflictdialog.cpp" line="240"/>
+        <location filename="conflictdialog.cpp" line="235"/>
         <source>sctime: unresolvable conflict</source>
         <translation>sctime: unlösbarer Konflikt</translation>
     </message>
     <message>
-        <location filename="conflictdialog.cpp" line="241"/>
+        <location filename="conflictdialog.cpp" line="236"/>
         <source>There seems to be a conflict with another session that could not be resolved. Please check your entries.</source>
         <translation>Es scheint ein Konflikt mit einer anderen Session zu bestehen, der nicht aufgelöst werden konnte, Bitte prüfe Deine Zeiteinträge.</translation>
     </message>
@@ -112,7 +112,7 @@ Hinweis: diese Meldung erscheint auch, wenn Du gerade ein laufendes Sctime in di
 <context>
     <name>DateDialog</name>
     <message>
-        <location filename="datedialog.cpp" line="81"/>
+        <location filename="datedialog.cpp" line="63"/>
         <source>Week %1</source>
         <translation>Woche %1</translation>
     </message>
@@ -187,15 +187,36 @@ Hinweis: diese Meldung erscheint auch, wenn Du gerade ein laufendes Sctime in di
 <context>
     <name>DeleteSettingsDialog</name>
     <message>
-        <location filename="deletesettingsdialog.cpp" line="50"/>
-        <source>This operation deletes all your working times that you have not checked in.
-Proceed?</source>
-        <translation>Diese Funktion löscht alle Zeiteinträge, die noch nicht eingecheckt sind.\nMöchtest Du fortfahren?</translation>
+        <location filename="deletesettingsdialog.cpp" line="56"/>
+        <source>sctime: invalid date range</source>
+        <translation>sctime: ungültiger Datumsbereich</translation>
     </message>
     <message>
-        <location filename="deletesettingsdialog.cpp" line="102"/>
+        <location filename="deletesettingsdialog.cpp" line="57"/>
+        <source>The &quot;From&quot; date must not be after the &quot;To&quot; date.</source>
+        <translation>Das &quot;Von&quot;-Datum darf nicht nach dem &quot;Bis&quot;-Datum liegen.</translation>
+    </message>
+    <message>
+        <location filename="deletesettingsdialog.cpp" line="71"/>
+        <source>This operation deletes all your working times that you have not checked in.
+Proceed?</source>
+        <translation>Diese Funktion löscht alle Zeiteinträge, die noch nicht eingecheckt sind.
+Möchtest Du fortfahren?</translation>
+    </message>
+    <message>
+        <location filename="deletesettingsdialog.cpp" line="192"/>
         <source>The file could not be deleted on the server. Error code is %1</source>
         <translation>Die Datei konnte nicht auf dem Server gelöscht werden. Der Fehlerode lautet %1</translation>
+    </message>
+    <message>
+        <location filename="deletesettingsdialog.cpp" line="214"/>
+        <source>The list of daily settings could not be retrieved from the server. Error code is %1</source>
+        <translation>Die Liste der Tageseinstellungen konnte nicht vom Server gelesen werden. Der Fehler Code ist %1</translation>
+    </message>
+    <message>
+        <location filename="deletesettingsdialog.cpp" line="252"/>
+        <source>The settings for %1 could not be deleted on the server. Error code is %2</source>
+        <translation>Die Einstellungen für %1 konnen nicht vom Server gelöscht werden. Der Fehler Code ist %2</translation>
     </message>
 </context>
 <context>
@@ -207,33 +228,56 @@ Proceed?</source>
     </message>
     <message>
         <location filename="deletesettingsdialogbase.ui" line="32"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please select the settings you wish to delete.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING:&lt;/span&gt; deleting daily settings also deletes all data that you recorded for this day (including time entries).&lt;/p&gt;&lt;p&gt;It is recommended to choose to stop the app - otherwise current settings remain in memory and will be written regulary, possibly recreating some of the deleted files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bitte wähle die Einstellungen und Daten, die Du löschen möchtest.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNUNG:&lt;/span&gt; Löschen der Tageseinstellungen löscht auch alle aufgezeichneteten Zeiten für diesen Tag (inklusive Zeiteinträge).&lt;/p&gt;&lt;p&gt;Es ist empfehlenswert die Anwendung zu beenden - andernfalls verbleiben die Einstellungen im Speicher der Applikation und werden weiterhin regelmässig abgespeichert, was möglicherweise gelöschte Dateien neu erzeugt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please select the settings you wish to delete.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING:&lt;/span&gt; deleting daily settings also deletes all data that you recorded for this day (including time entries).&lt;/p&gt;&lt;p&gt;If you want to ensure that data is not automatically synced back, you should delete both the local copy and the copy on server.&lt;/p&gt;&lt;p&gt;It is also recommended to choose to stop the app - otherwise current settings remain in memory and will be written regulary, possibly recreating some of the deleted files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please select the settings you wish to delete.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING:&lt;/span&gt; deleting daily settings also deletes all data that you recorded for this day (including time entries).&lt;/p&gt;&lt;p&gt;It is recommended to choose to stop the app - otherwise current settings remain in memory and will be written regulary, possibly recreating some of the deleted files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bitte wähle die Einstellungen und Daten, die Du löschen möchtest.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNUNG:&lt;/span&gt; Löschen der Tageseinstellungen löscht alle aufgezeichneteten Zeiten aller lokal in der Applikation geführten Tage (inklusive Zeiteinträge).&lt;/p&gt;&lt;p&gt;Wenn Du sicher gehen möchtest, dass die Daten nicht zurück synchronisiert werden, solltest Du sowohl die lokale Kopie als auch die auf dem Server löschen.&lt;/p&lt;p&gt;Die Anwendung sollte zudem nach dem löschen beendet werden (siehe entsprechende Option) - andernfalls verbleiben die Einstellungen im Speicher der Applikation und werden weiterhin regelmässig abgespeichert, was möglicherweise gelöschte Dateien neu erzeugt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="deletesettingsdialogbase.ui" line="55"/>
-        <source>Data to delete</source>
-        <translation>Zu löschende Daten</translation>
+        <source>Global settings to delete</source>
+        <oldsource>Data to delete</oldsource>
+        <translation>Zu löschende globale Einstellungen</translation>
     </message>
     <message>
         <location filename="deletesettingsdialogbase.ui" line="61"/>
+        <location filename="deletesettingsdialogbase.ui" line="108"/>
+        <source>local copy</source>
+        <translation>Lokale Kopie</translation>
+    </message>
+    <message>
+        <location filename="deletesettingsdialogbase.ui" line="78"/>
+        <source>Daily settings and time entries to delete</source>
+        <translation>Zu löschende Tageseinstellungen und Zeiteinträge</translation>
+    </message>
+    <message>
+        <location filename="deletesettingsdialogbase.ui" line="86"/>
+        <source>From:</source>
+        <translation>Von:</translation>
+    </message>
+    <message>
+        <location filename="deletesettingsdialogbase.ui" line="96"/>
+        <source>To (including):</source>
+        <translation>Bis (inklusive):</translation>
+    </message>
+    <message>
         <source>Global setting (local copy)</source>
-        <translation>Globale Einstellungen (lokale Kopie)</translation>
+        <translation type="vanished">Globale Einstellungen (lokale Kopie)</translation>
     </message>
     <message>
         <location filename="deletesettingsdialogbase.ui" line="68"/>
-        <source>Global setting (copy on server)</source>
-        <translation>Globale Einstellungen (Kopie auf dem Server)</translation>
+        <location filename="deletesettingsdialogbase.ui" line="115"/>
+        <source>copy on server</source>
+        <oldsource>Global setting (copy on server)</oldsource>
+        <translation>Kopie auf dem Server</translation>
     </message>
     <message>
-        <location filename="deletesettingsdialogbase.ui" line="75"/>
         <source>All daily settings and time entries (local copy)</source>
-        <translation>Alle Tageseinstellungen und Zeiteinträge (lokale Kopie)</translation>
+        <translation type="vanished">Alle Tageseinstellungen und Zeiteinträge (lokale Kopie)</translation>
     </message>
     <message>
-        <location filename="deletesettingsdialogbase.ui" line="82"/>
+        <location filename="deletesettingsdialogbase.ui" line="138"/>
         <source>Stop App after deleting (recommended)</source>
-        <translation>Anwendung beenden nach dem löschen (empfohlen)</translation>
+        <translation>Anwendung nach Löschvorgang beenden (empfohlen)</translation>
     </message>
 </context>
 <context>
@@ -249,12 +293,18 @@ Proceed?</source>
         <translation>Bitte wähle den Zeitraum den Du herunterladen möchtest:</translation>
     </message>
     <message>
-        <location filename="downloadshdialogbase.ui" line="27"/>
+        <location filename="downloadshdialogbase.ui" line="40"/>
         <source>Startdate</source>
         <translation>Anfangsdatum</translation>
     </message>
     <message>
-        <location filename="downloadshdialogbase.ui" line="44"/>
+        <location filename="downloadshdialogbase.ui" line="46"/>
+        <location filename="downloadshdialogbase.ui" line="65"/>
+        <source>ddd dd.MM.yyyy</source>
+        <translation>ddd dd.MM.yyyy</translation>
+    </message>
+    <message>
+        <location filename="downloadshdialogbase.ui" line="59"/>
         <source>Enddate</source>
         <translation>Enddatum</translation>
     </message>
@@ -303,12 +353,12 @@ Proceed?</source>
 <context>
     <name>JSONReaderUrl</name>
     <message>
-        <location filename="JSONReader.cpp" line="309"/>
+        <location filename="JSONReader.cpp" line="327"/>
         <source>Couldn&apos;t open json from uri %1 with error code %2</source>
         <translation>Konnte Json von Uri %1 nicht laden mit Fehlercode %2</translation>
     </message>
     <message>
-        <location filename="JSONReader.cpp" line="318"/>
+        <location filename="JSONReader.cpp" line="336"/>
         <source>Couldn&apos;t open json from uri %1 because sctime-rest-response header is missing</source>
         <translation>Konnte Json von URL %1 nicht öffnen, da der sctime-rest-response header fehlt</translation>
     </message>
@@ -411,7 +461,9 @@ Ende der Pause mit OK.</translation>
         <source>Accounting has been stopped at %1.
 The duration of the current break is %2 minutes.
 Resume work with OK.</source>
-        <translation>Die Zeiterfassung wurde um %1 Uhr angehalten.\n Die Dauer der aktuellen Pause beträgt %2.\n Ende der Pause mit OK.</translation>
+        <translation type="unfinished">Die Zeiterfassung wurde um %1 Uhr angehalten.
+Die Dauer der aktuellen Pause beträgt %2.
+Ende der Pause mit OK.</translation>
     </message>
 </context>
 <context>
@@ -422,103 +474,103 @@ Resume work with OK.</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="27"/>
+        <location filename="preferencedialogbase.ui" line="30"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="33"/>
+        <location filename="preferencedialogbase.ui" line="36"/>
         <source>General Settings</source>
         <translation>Allgemeine Einstellungen</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="39"/>
+        <location filename="preferencedialogbase.ui" line="42"/>
         <source>Re-use previous day&apos;s comments</source>
         <translation>Kommentare für nächsten Tag übernehmen</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="46"/>
+        <location filename="preferencedialogbase.ui" line="49"/>
         <source>Poweruser view</source>
         <translation>Poweruser Ansicht</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="53"/>
+        <location filename="preferencedialogbase.ui" line="56"/>
         <source>Activate account by single click</source>
         <translation>Konto durch Singleclick aktivieren</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="60"/>
+        <location filename="preferencedialogbase.ui" line="63"/>
         <source>Show account type</source>
         <translation>Kontotyp anzeigen</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="67"/>
+        <location filename="preferencedialogbase.ui" line="70"/>
         <source>Show PSP element number</source>
         <translation>PSP Element anzeigen</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="74"/>
+        <location filename="preferencedialogbase.ui" line="77"/>
         <source>Automatically use default comment if it is unique</source>
         <translation>Default Kommentar automatisch verwenden, wenn eindeutig</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="81"/>
+        <location filename="preferencedialogbase.ui" line="84"/>
         <source>Activate drag &apos;n&apos; drop</source>
         <translation>Drag &apos;n&apos; drop aktivieren</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="88"/>
+        <location filename="preferencedialogbase.ui" line="91"/>
         <source>Show sum in personal accounts</source>
         <translation>Summe in persönlichen Konten</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="95"/>
+        <location filename="preferencedialogbase.ui" line="98"/>
         <source>Show special remuneration selector</source>
         <translation>Sonderzeitauswahl anzeigen</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="102"/>
+        <location filename="preferencedialogbase.ui" line="105"/>
         <source>Warn if comment doesn&apos;t conform to ISO8859-1</source>
         <translation>Warnen wenn Kommentar nicht in ISO8859 darstellbar</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="109"/>
+        <location filename="preferencedialogbase.ui" line="112"/>
         <source>Sort by comment text (instead by number)</source>
         <translation>Nach Kommentartext sortieren (statt numerisch)</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="168"/>
+        <location filename="preferencedialogbase.ui" line="171"/>
         <source>Default Comments Display Mode</source>
         <translation>Anzeigemodus für Defaultkommentare</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="174"/>
+        <location filename="preferencedialogbase.ui" line="177"/>
         <source>Used default comments in bold</source>
         <translation>Verwendete Defaultkommentare in fett</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="181"/>
+        <location filename="preferencedialogbase.ui" line="184"/>
         <source>Not used default comments in bold</source>
         <translation>Nicht verwendete Defaultkommentare in fett</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="188"/>
+        <location filename="preferencedialogbase.ui" line="191"/>
         <source>Don&apos;t mark default comments</source>
         <translation>Keine Markierung</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="295"/>
-        <location filename="preferencedialogbase.ui" line="301"/>
+        <location filename="preferencedialogbase.ui" line="298"/>
+        <location filename="preferencedialogbase.ui" line="304"/>
         <source>Fonts</source>
         <translation>Fonts</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="309"/>
+        <location filename="preferencedialogbase.ui" line="312"/>
         <source>Use custom font</source>
         <translation>Eigene Schrift verwenden</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="319"/>
+        <location filename="preferencedialogbase.ui" line="322"/>
         <source>Select Font</source>
         <translation>Schrift wählen</translation>
     </message>
@@ -527,176 +579,220 @@ Resume work with OK.</source>
         <translation type="obsolete">AaBbCc</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="230"/>
+        <location filename="preferencedialogbase.ui" line="233"/>
         <source>Increments</source>
         <translation>Zeitinkrement</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="238"/>
+        <location filename="preferencedialogbase.ui" line="241"/>
         <source>Basic time increment</source>
         <translation>Einfache Zeitinkrement Buttons</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="259"/>
+        <location filename="preferencedialogbase.ui" line="262"/>
         <source>Fast time increment</source>
         <translation>Schnelle Zeitinkrement Buttons</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="338"/>
+        <location filename="preferencedialogbase.ui" line="341"/>
         <source>Accounts</source>
         <translation>Konten</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="343"/>
+        <location filename="preferencedialogbase.ui" line="346"/>
         <source>Active</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="212"/>
-        <location filename="preferencedialogbase.ui" line="348"/>
+        <location filename="preferencedialogbase.ui" line="215"/>
+        <location filename="preferencedialogbase.ui" line="351"/>
         <source>Time</source>
         <translation>Zeit</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="119"/>
+        <location filename="preferencedialogbase.ui" line="122"/>
         <source>Stay offline after initialization</source>
         <translation>Offline bleiben nach Initialisierung</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="132"/>
+        <location filename="preferencedialogbase.ui" line="135"/>
         <source>Do not write consolidated intervals in sh file (check your companies regulations if you change this).</source>
         <oldsource>Do not write consolidated intervals in sh file (check your companies regulations if you change this.</oldsource>
         <translation>Schreibe keine konsolidierten Arbeitszeiten in die SH-Datei (prüfe die Regelungen Deiner Firma, wenn Du dies änderst).</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="135"/>
+        <location filename="preferencedialogbase.ui" line="138"/>
         <source>Do not write consolidated intervals in sh file</source>
         <translation>Schreibe keine konsolidierten Arbeitszeiten in die SH-Datei</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="162"/>
+        <location filename="preferencedialogbase.ui" line="165"/>
         <source>Comments</source>
         <translation>Kommentare</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="356"/>
+        <location filename="preferencedialogbase.ui" line="359"/>
         <source>Accountable</source>
         <translation>Abzur.</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="364"/>
+        <location filename="preferencedialogbase.ui" line="367"/>
         <source>Comment</source>
         <translation>Kommentar</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="369"/>
+        <location filename="preferencedialogbase.ui" line="372"/>
         <source>All Accounts</source>
         <translation>Alle Konten</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="374"/>
+        <location filename="preferencedialogbase.ui" line="377"/>
         <source>Personal Accounts</source>
         <translation>Persönliche Konten</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="378"/>
+        <location filename="preferencedialogbase.ui" line="381"/>
         <source>Department</source>
         <translation>Abteilung</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="385"/>
+        <location filename="preferencedialogbase.ui" line="388"/>
         <source>management</source>
         <translation>Verwaltung</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="400"/>
         <location filename="preferencedialogbase.ui" line="403"/>
+        <location filename="preferencedialogbase.ui" line="406"/>
         <source>0:30</source>
         <translation>0:30</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="406"/>
+        <location filename="preferencedialogbase.ui" line="409"/>
         <source>talked to boss about workload</source>
         <translation>Mit Chef über Auslastung gesprochen</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="411"/>
+        <location filename="preferencedialogbase.ui" line="414"/>
         <source>training</source>
         <translation>Ausbildung</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="417"/>
         <location filename="preferencedialogbase.ui" line="420"/>
-        <location filename="preferencedialogbase.ui" line="639"/>
-        <location filename="preferencedialogbase.ui" line="651"/>
-        <location filename="preferencedialogbase.ui" line="702"/>
-        <location filename="preferencedialogbase.ui" line="714"/>
+        <location filename="preferencedialogbase.ui" line="423"/>
+        <location filename="preferencedialogbase.ui" line="642"/>
+        <location filename="preferencedialogbase.ui" line="654"/>
+        <location filename="preferencedialogbase.ui" line="705"/>
+        <location filename="preferencedialogbase.ui" line="717"/>
         <source>0:00</source>
         <translation>0:00</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="426"/>
+        <location filename="preferencedialogbase.ui" line="429"/>
         <source>Customer 1</source>
         <translation>Kunde 1</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="430"/>
+        <location filename="preferencedialogbase.ui" line="433"/>
         <source>project1</source>
         <translation>projekt1</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="491"/>
+        <location filename="preferencedialogbase.ui" line="494"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="515"/>
+        <location filename="preferencedialogbase.ui" line="518"/>
         <source>2:00</source>
         <translation>2:00</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="527"/>
+        <location filename="preferencedialogbase.ui" line="530"/>
         <source>1:45</source>
         <translation>1:45</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="539"/>
+        <location filename="preferencedialogbase.ui" line="542"/>
         <source>web server setup: some work done, lots to do</source>
         <translation>Webserver: einiges fertig aber noch viel zu tun</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="553"/>
+        <location filename="preferencedialogbase.ui" line="556"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="577"/>
-        <location filename="preferencedialogbase.ui" line="589"/>
+        <location filename="preferencedialogbase.ui" line="580"/>
+        <location filename="preferencedialogbase.ui" line="592"/>
         <source>0:15</source>
         <translation>0:15</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="601"/>
+        <location filename="preferencedialogbase.ui" line="604"/>
         <source>backup: tapes changed</source>
         <translation>Backup: Bänder gewechselt</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="615"/>
+        <location filename="preferencedialogbase.ui" line="618"/>
         <source>2</source>
         <translation>2</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="678"/>
+        <location filename="preferencedialogbase.ui" line="681"/>
         <source>project2</source>
         <translation>projekt2</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="783"/>
+        <location filename="preferencedialogbase.ui" line="765"/>
+        <source>Shortcuts</source>
+        <translation>Shortcuts</translation>
+    </message>
+    <message>
+        <location filename="preferencedialogbase.ui" line="771"/>
+        <source>Enable Shortcuts</source>
+        <translation>Shortcuts aktivieren</translation>
+    </message>
+    <message>
+        <location filename="preferencedialogbase.ui" line="781"/>
+        <source>More settings</source>
+        <translation>Weitere Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="preferencedialogbase.ui" line="787"/>
+        <source>If you enable shortcuts, they might interfere with other shortcuts in your system.
+If this is an issue you can choose below which modifier the shortcuts should use.
+</source>
+        <translation>Wenn Shortcuts aktiviert sind, können sie sich möglicherweise nicht mit anderen Shortcuts im System vertragen.
+Sollte dies ein Problem darstellen, kannst Du unten eine andere Modifikatortaste für die Shortcuts auswählen.
+</translation>
+    </message>
+    <message>
+        <location filename="preferencedialogbase.ui" line="799"/>
+        <source>Modifiers</source>
+        <translation>Modifikatoren</translation>
+    </message>
+    <message>
+        <location filename="preferencedialogbase.ui" line="805"/>
+        <source>Ctrl</source>
+        <translation>Ctrl</translation>
+    </message>
+    <message>
+        <location filename="preferencedialogbase.ui" line="812"/>
+        <source>Ctrl-Shift</source>
+        <translation>Ctrl-Shift</translation>
+    </message>
+    <message>
+        <location filename="preferencedialogbase.ui" line="819"/>
+        <source>Alt</source>
+        <translation>Alt</translation>
+    </message>
+    <message>
+        <location filename="preferencedialogbase.ui" line="867"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="preferencedialogbase.ui" line="799"/>
+        <location filename="preferencedialogbase.ui" line="883"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
@@ -704,7 +800,7 @@ Resume work with OK.</source>
 <context>
     <name>PunchClockDialog</name>
     <message>
-        <location filename="punchclockdialog.cpp" line="66"/>
+        <location filename="punchclockdialog.cpp" line="67"/>
         <source>Current</source>
         <translation>Laufend</translation>
     </message>
@@ -764,7 +860,7 @@ Resume work with OK.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="abteilungsliste.cpp" line="501"/>
+        <location filename="abteilungsliste.cpp" line="524"/>
         <source>Unknown Mode in applyFlagMode</source>
         <translation>Unbekannter Modus in applyFlagMode</translation>
     </message>
@@ -795,48 +891,58 @@ Resume work with OK.</source>
         <translation>Zeile %1 von &apos;%2&apos; hat nur %3 Spalten statt %4</translation>
     </message>
     <message>
-        <location filename="datasource.cpp" line="135"/>
+        <location filename="JSONReader.cpp" line="392"/>
         <source>Connecting to database %1 on %2 with driver %3 as user %4</source>
         <translation>Verbindungsaufbau zu Datenbank %1 auf %2 mit Treiber %3 als Benutzer %4</translation>
     </message>
     <message>
-        <location filename="datasource.cpp" line="138"/>
+        <location filename="JSONReader.cpp" line="395"/>
         <source>connection failed: </source>
         <translation>Verbindungsaufbau fehlgeschlagen: </translation>
     </message>
     <message>
-        <location filename="datasource.cpp" line="143"/>
+        <location filename="JSONReader.cpp" line="401"/>
         <source>Error (&apos;%1&apos;) when executing query: %2</source>
         <translation>Fehler (&apos;%1&apos;) in Abfrage: %2</translation>
     </message>
     <message>
-        <location filename="datasource.cpp" line="179"/>
+        <location filename="JSONReader.cpp" line="409"/>
+        <source>Query returned %1 columns, expected 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="JSONReader.cpp" line="415"/>
+        <source>Query returned more than one row, only the first row is processed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="datasource.cpp" line="141"/>
         <source>Cannot run command &apos;%1&apos;: %s2</source>
         <translation>Kann Kommando &apos;%1&apos; nicht ausführen: %s2</translation>
     </message>
     <message>
-        <location filename="JSONReader.cpp" line="343"/>
-        <location filename="datasource.cpp" line="183"/>
+        <location filename="JSONReader.cpp" line="361"/>
+        <location filename="datasource.cpp" line="145"/>
         <source>Running command: </source>
         <translation>Führe aus: </translation>
     </message>
     <message>
-        <location filename="JSONReader.cpp" line="345"/>
+        <location filename="JSONReader.cpp" line="363"/>
         <source>Cannot run command &apos;%1&apos;: %2</source>
         <translation>Kann Kommando &apos;%1&apos; nicht ausführen: %2</translation>
     </message>
     <message>
-        <location filename="JSONReader.cpp" line="351"/>
+        <location filename="JSONReader.cpp" line="369"/>
         <source>Command &apos;%1&apos; has non-zero exitcode: %s2</source>
         <translation>Kommando &apos;%1&apos; hat einen Exitcode ungleich Null: %s2</translation>
     </message>
     <message>
-        <location filename="datasource.cpp" line="195"/>
+        <location filename="datasource.cpp" line="157"/>
         <source>Error when executing command &apos;%1&apos;: %2</source>
         <translation>Fehler bei &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="datasource.cpp" line="195"/>
+        <location filename="datasource.cpp" line="157"/>
         <source>abnormal termination</source>
         <translation>nicht normal beendet</translation>
     </message>
@@ -1020,7 +1126,7 @@ Please see the Help menu for further information (F1)!</oldsource>
 Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="80"/>
+        <location filename="sctime.cpp" line="81"/>
         <source>Available Options:
 --configdir=DIR		location of the directory where your files will be placed
 			(default: ~/.sctime)
@@ -1086,74 +1192,74 @@ Please see the Help menu for further information (F1)!</oldsource>
 Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="158"/>
+        <location filename="sctime.cpp" line="159"/>
         <source>Error on connecting to sctime</source>
         <translation>Fehler beim Verbinden zu sctime</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="191"/>
+        <location filename="sctime.cpp" line="213"/>
         <source>Personal accounts</source>
         <translation>Persönliche Konten</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="192"/>
+        <location filename="sctime.cpp" line="214"/>
         <source>All accounts</source>
         <translation>Alle Konten</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="198"/>
+        <location filename="sctime.cpp" line="220"/>
         <source>sctime </source>
         <translation>sctime </translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="208"/>
+        <location filename="sctime.cpp" line="230"/>
         <source>directory</source>
         <translation>Verzeichnis</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="210"/>
-        <location filename="sctime.cpp" line="212"/>
-        <location filename="sctime.cpp" line="214"/>
-        <location filename="sctime.cpp" line="216"/>
-        <location filename="sctime.cpp" line="220"/>
+        <location filename="sctime.cpp" line="232"/>
+        <location filename="sctime.cpp" line="234"/>
+        <location filename="sctime.cpp" line="236"/>
+        <location filename="sctime.cpp" line="238"/>
+        <location filename="sctime.cpp" line="242"/>
         <source>file</source>
         <translation>Datei</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="218"/>
+        <location filename="sctime.cpp" line="240"/>
         <source>source</source>
         <translation>Quelle</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="222"/>
+        <location filename="sctime.cpp" line="244"/>
         <source>link</source>
         <translation>Link</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="247"/>
+        <location filename="sctime.cpp" line="269"/>
         <source>sctime: Configuration problem</source>
         <oldsource>sctime: configuration problem</oldsource>
         <translation>sctime: Konfigurationsproblem</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="248"/>
+        <location filename="sctime.cpp" line="270"/>
         <source>Cannot access configration directory %1.</source>
         <oldsource>Cannot access conigration directory %1.</oldsource>
         <translation>Kann nicht auf %1 zugreifen.</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="285"/>
+        <location filename="sctime.cpp" line="307"/>
         <source>sctime: Cannot start</source>
         <oldsource>sctime: cannot start</oldsource>
         <translation>sctime: kann nicht starten</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="290"/>
+        <location filename="sctime.cpp" line="312"/>
         <source>Unclean state</source>
         <translation>Unklarer Zustand</translation>
     </message>
     <message>
-        <location filename="sctime.cpp" line="290"/>
+        <location filename="sctime.cpp" line="312"/>
         <source>It looks like the last instance of sctime might have crashed, probably at %1. Please check if the recorded times of that date are correct.</source>
         <translation>Die letzte Instanz von sctime scheint abgestürzt zu sein (wahrscheinlich um %1). Bitte überprüfen Sie die aufgezeichneten Zeiten dieses Datums.</translation>
     </message>
@@ -1181,119 +1287,119 @@ Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translat
         <translation type="vanished">%1 : %2</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2738"/>
+        <location filename="timemainwindow.cpp" line="2919"/>
         <source>sctime: reading configuration file</source>
         <translation>sctime: Konfigurationsdatei lesen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2739"/>
-        <location filename="xmlreader.cpp" line="258"/>
+        <location filename="timemainwindow.cpp" line="2920"/>
+        <location filename="xmlreader.cpp" line="294"/>
         <source>error in %1, line %2, column %3: %4.</source>
         <translation>Fehler in %1, Zeile %2, Spalte %3: %4.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="3049"/>
+        <location filename="timemainwindow.cpp" line="3277"/>
         <source>sctime: going permanently offline</source>
         <translation>sctime: schalte auf dauerhaft offline</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="3050"/>
+        <location filename="timemainwindow.cpp" line="3278"/>
         <source>Do you really want to go permanently offline? Your data will not be synced to the cloud while you are permanently offline.</source>
         <translation>Möchtest Du wirklich dauerhaft offline gehen? Deine Daten werden nicht in die Cloud gesynct während Du dauerhaft offline bist.</translation>
     </message>
     <message>
-        <location filename="xmlwriter.cpp" line="468"/>
+        <location filename="xmlwriter.cpp" line="506"/>
         <source>zeit-DAY.sh not written because it has already been checked in</source>
         <translation>zeit-TAG.sh nicht geschrieben, da bereits eingecheckt</translation>
     </message>
     <message>
-        <location filename="xmlwriter.cpp" line="482"/>
-        <location filename="xmlwriter.cpp" line="491"/>
-        <location filename="xmlwriter.cpp" line="513"/>
-        <location filename="xmlwriter.cpp" line="526"/>
-        <location filename="xmlwriter.cpp" line="537"/>
+        <location filename="xmlwriter.cpp" line="520"/>
+        <location filename="xmlwriter.cpp" line="529"/>
+        <location filename="xmlwriter.cpp" line="551"/>
+        <location filename="xmlwriter.cpp" line="564"/>
+        <location filename="xmlwriter.cpp" line="575"/>
         <source>sctime: saving settings</source>
         <translation>sctime: Einstellungen speichern</translation>
     </message>
     <message>
-        <location filename="xmlwriter.cpp" line="482"/>
+        <location filename="xmlwriter.cpp" line="520"/>
         <source>%1 has been modified since the last changes done by this sctime instance. Do you wanto to overwrite theses changes?</source>
         <translation>Datei %1 wurde verändert seit der letzten Änderung durch sctime. Sollen diese Änderungen überschrieben werden?</translation>
     </message>
     <message>
-        <location filename="xmlwriter.cpp" line="491"/>
+        <location filename="xmlwriter.cpp" line="529"/>
         <source>opening file %1 for writing failed. Please make sure the sctime settings directory is available. Details: %2</source>
         <translation>Datei %1 konnte nicht zum Schreiben geöffnet werden. Bitte stellen sie sicher dass das sctime Einstellungsverzeichnis verfügbar ist. Details: %2</translation>
     </message>
     <message>
-        <location filename="xmlwriter.cpp" line="514"/>
+        <location filename="xmlwriter.cpp" line="552"/>
         <source>%1 cannot be copied to %2: %3</source>
         <translation>Kann nicht %1 kopieren nach %2: %3</translation>
     </message>
     <message>
         <location filename="sctimexmlsettings.cpp" line="79"/>
-        <location filename="xmlwriter.cpp" line="527"/>
-        <location filename="xmlwriter.cpp" line="538"/>
+        <location filename="xmlwriter.cpp" line="565"/>
+        <location filename="xmlwriter.cpp" line="576"/>
         <source>%1 cannot be renamed to %2: %3</source>
         <translation>Kann nicht %1 umbenennen zu %2: %3</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="100"/>
+        <location filename="setupdsm.cpp" line="63"/>
         <source>user name cannot be determined.</source>
         <translation>Der Benutzername kann nicht festgestellt werden.</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="121"/>
+        <location filename="setupdsm.cpp" line="84"/>
         <source>Error when reading from file %1: %2</source>
         <translation>Beim Lesen aus Datei %1: %2</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="253"/>
+        <location filename="setupdsm.cpp" line="219"/>
         <source>Accounts</source>
         <translation>Konten</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="254"/>
+        <location filename="setupdsm.cpp" line="220"/>
         <source>On-call categories</source>
         <translation>Bereitschaftsarten</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="255"/>
+        <location filename="setupdsm.cpp" line="221"/>
         <source>Special Remunerations</source>
         <translation>Sonderzeiten</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="144"/>
+        <location filename="setupdsm.cpp" line="107"/>
         <source>available database drivers: %1.</source>
         <translation>verfügbare Datenbanktreiber: %1.</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="154"/>
+        <location filename="setupdsm.cpp" line="117"/>
         <source>adding jsonreader: %1.</source>
         <translation>Füge JsonReader hinzu: %1.</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="180"/>
+        <location filename="setupdsm.cpp" line="143"/>
         <source>data source &apos;command&apos; is not available on Windows</source>
         <translation>Datenquelle &apos;command&apos; ist unter Windows nicht verfügbar</translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="199"/>
+        <location filename="setupdsm.cpp" line="162"/>
         <source>database driver or data source not available: </source>
         <translation>Datenbanktreiber oder Datenquelle nicht verfügbar: </translation>
     </message>
     <message>
-        <location filename="setupdsm.cpp" line="204"/>
+        <location filename="setupdsm.cpp" line="167"/>
         <source>data source &apos;%1&apos; not working: %2</source>
         <translation>data translation &apos;%1&apos;not working: %2</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="108"/>
+        <location filename="timemainwindow.cpp" line="119"/>
         <source>-- Start --</source>
         <translation>-- Start --</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="663"/>
+        <location filename="timemainwindow.cpp" line="721"/>
         <source>sctime: accounting stopped</source>
         <translation>sctime: Zeiterfassung gestoppt</translation>
     </message>
@@ -1325,28 +1431,42 @@ Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translat
     </message>
     <message>
         <location filename="punchclockchecker.cpp" line="134"/>
-        <source>You are working for more than 10 hours on this workday. You should take a break of at least 11 hours now.</source>
-        <translation>Du arbeitest mehr als 10 Stunden an diesem Arbeitstag. Du solltest die Arbeit jetzt für mindestens 11 Stunden unterbrechen.</translation>
+        <source>You are working for more than 10 hours on this workday. You should take a break of at least 11 hours now. 
+
+Note: This warning may also trigger, if you did not take a continuous break of at least 11 hours between the end of yesterday&apos;s work and the beginning of today&apos;s work.</source>
+        <translation>Du arbeitest mehr als 10 Stunden an diesem Arbeitstag. Du solltest die Arbeit jetzt für mindestens 11 Stunden unterbrechen.
+
+Hinweis: Diese Warnung wird auch ausgelöst, wenn Du seit dem Arbeitsende gestern bis zum Arbeitsanfang heute keine ununterbrochene Pause von 11 Stunden eingelegt hast.</translation>
     </message>
     <message>
-        <location filename="punchclockdialog.cpp" line="41"/>
+        <source>You are working for more than 10 hours on this workday. You should take a break of at least 11 hours now.</source>
+        <translation type="vanished">Du arbeitest mehr als 10 Stunden an diesem Arbeitstag. Du solltest die Arbeit jetzt für mindestens 11 Stunden unterbrechen.</translation>
+    </message>
+    <message>
+        <location filename="punchclockdialog.cpp" line="42"/>
         <source>Begin time</source>
         <translation>Startzeit</translation>
     </message>
     <message>
-        <location filename="punchclockdialog.cpp" line="41"/>
+        <location filename="punchclockdialog.cpp" line="42"/>
         <source>End time</source>
         <translation>Endzeit</translation>
     </message>
     <message>
-        <location filename="deletesettingsdialog.cpp" line="49"/>
+        <location filename="deletesettingsdialog.cpp" line="70"/>
         <source>sctime: deleting data</source>
         <translation>sctime: lösche Daten</translation>
     </message>
     <message>
-        <location filename="deletesettingsdialog.cpp" line="101"/>
+        <location filename="deletesettingsdialog.cpp" line="191"/>
+        <location filename="deletesettingsdialog.cpp" line="251"/>
         <source>sctime: error on deleting file on server</source>
         <translation>sctime: Fehler beim löschen von Server-Datei</translation>
+    </message>
+    <message>
+        <location filename="deletesettingsdialog.cpp" line="213"/>
+        <source>sctime: error on listing settings on server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1421,7 +1541,7 @@ Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translat
 <context>
     <name>TextViewerDialog</name>
     <message>
-        <location filename="textviewerdialog.cpp" line="35"/>
+        <location filename="textviewerdialog.cpp" line="37"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1429,74 +1549,79 @@ Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translat
 <context>
     <name>TimeMainWindow</name>
     <message>
-        <location filename="timemainwindow.cpp" line="143"/>
+        <location filename="timemainwindow.cpp" line="155"/>
         <source>sctime</source>
         <translation>sctime</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="168"/>
+        <location filename="timemainwindow.cpp" line="182"/>
         <source>Main toolbar</source>
         <translation>Main ToolBar</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="170"/>
+        <location filename="timemainwindow.cpp" line="184"/>
         <source>&amp;Account</source>
         <translation>&amp;Konto</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="171"/>
+        <location filename="timemainwindow.cpp" line="185"/>
         <source>&amp;Time</source>
         <translation>&amp;Zeit</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="172"/>
+        <location filename="timemainwindow.cpp" line="186"/>
         <source>&amp;Remuneration</source>
         <translation>Ve&amp;rgütung</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="173"/>
+        <location filename="timemainwindow.cpp" line="187"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="174"/>
+        <location filename="timemainwindow.cpp" line="188"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="180"/>
+        <location filename="timemainwindow.cpp" line="194"/>
         <source>&amp;Pause</source>
         <translation>&amp;Pause</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="185"/>
+        <location filename="timemainwindow.cpp" line="199"/>
         <source>Pause &amp;accountable time</source>
         <oldsource>Pause counting &amp;accountable time</oldsource>
         <translation>Pause der &amp;abzur. Zeit</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="216"/>
+        <location filename="timemainwindow.cpp" line="230"/>
         <source>Re&amp;set difference</source>
         <translation>Differenz auf &amp;Null</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="301"/>
+        <location filename="timemainwindow.cpp" line="276"/>
+        <source>&amp;Update...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="timemainwindow.cpp" line="320"/>
         <source>Import</source>
         <translation>Importieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="304"/>
+        <location filename="timemainwindow.cpp" line="323"/>
         <source>Delete settings files</source>
         <translation>Konfigurationsdaten löschen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="313"/>
+        <location filename="timemainwindow.cpp" line="332"/>
         <source>Pause only tracking of accountable time</source>
         <oldsource>Pause only counting of accountable time</oldsource>
         <translation>Hält nur die Uhr für die abzurechnende Zeit an</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="190"/>
+        <location filename="timemainwindow.cpp" line="204"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
@@ -1509,43 +1634,43 @@ Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translat
         <translation type="obsolete">Name ins Clipboard kopieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="194"/>
+        <location filename="timemainwindow.cpp" line="208"/>
         <source>&amp;Copy as text</source>
         <translation>Als &amp;Text kopieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="314"/>
+        <location filename="timemainwindow.cpp" line="333"/>
         <source>Copy infos about account and entry as text to clipboard</source>
         <translation>Informationen zum Konto und Eintrag als Text in die Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="198"/>
+        <location filename="timemainwindow.cpp" line="212"/>
         <source>Copy as &amp;link</source>
         <translation>Als &amp;Link kopieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="315"/>
+        <location filename="timemainwindow.cpp" line="334"/>
         <source>Copy infos about account and entry as a link to clipboard</source>
         <translation>Informationen zum Konto als Link in die Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="202"/>
+        <location filename="timemainwindow.cpp" line="216"/>
         <source>Paste link</source>
         <translation>Link öffnen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="316"/>
+        <location filename="timemainwindow.cpp" line="335"/>
         <source>Open account from link from clipboard</source>
         <oldsource>Copy infos about account and entry from clipboard</oldsource>
         <translation>Öffne Konto über Zwischenablage-Link</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="206"/>
+        <location filename="timemainwindow.cpp" line="220"/>
         <source>C&amp;hoose Date...</source>
         <translation>&amp;Datum wählen...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="211"/>
+        <location filename="timemainwindow.cpp" line="225"/>
         <source>Punch Clock</source>
         <translation>Anwesenheitszeiten</translation>
     </message>
@@ -1554,112 +1679,112 @@ Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translat
         <translation type="vanished">Differenz auf &amp;Null</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="317"/>
+        <location filename="timemainwindow.cpp" line="336"/>
         <source>Set active account&apos;s accountable time equal worked time</source>
         <translation>Beim gewählten Unterkonto die abzurechnenden auf die geleisteten Stunden setzen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="220"/>
+        <location filename="timemainwindow.cpp" line="234"/>
         <source>Select as personal &amp;account</source>
         <translation>In persönliche &amp;Konten</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="225"/>
+        <location filename="timemainwindow.cpp" line="239"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="318"/>
+        <location filename="timemainwindow.cpp" line="337"/>
         <source>Quit program</source>
         <translation>Programm beenden</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="236"/>
+        <location filename="timemainwindow.cpp" line="250"/>
         <source>&amp;Search account...</source>
         <translation>Konto s&amp;uchen...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="241"/>
+        <location filename="timemainwindow.cpp" line="255"/>
         <source>&amp;Reread account list</source>
         <translation>&amp;Kontoliste neu laden</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="245"/>
+        <location filename="timemainwindow.cpp" line="259"/>
         <source>&amp;Settings...</source>
         <translation>&amp;Einstellungen...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="249"/>
+        <location filename="timemainwindow.cpp" line="263"/>
         <source>&amp;Manual...</source>
         <translation>&amp;Anleitung...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="253"/>
+        <location filename="timemainwindow.cpp" line="267"/>
         <source>&amp;About sctime...</source>
         <translation>&amp;Über sctime...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="319"/>
+        <location filename="timemainwindow.cpp" line="338"/>
         <source>About sctime...</source>
         <translation>Über sctime...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="257"/>
+        <location filename="timemainwindow.cpp" line="271"/>
         <source>About &amp;Qt...</source>
         <translation>Über &amp;Qt...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="261"/>
+        <location filename="timemainwindow.cpp" line="280"/>
         <source>Additional &amp;License Information...</source>
         <translation>Weitere &amp;Lizenz Information</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="264"/>
+        <location filename="timemainwindow.cpp" line="283"/>
         <source>&amp;Messages...</source>
         <translation>&amp;Meldungen...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="267"/>
+        <location filename="timemainwindow.cpp" line="286"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Editieren...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="320"/>
+        <location filename="timemainwindow.cpp" line="339"/>
         <source>Edit subaccount</source>
         <translation>Unterkonto editieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="271"/>
+        <location filename="timemainwindow.cpp" line="290"/>
         <source>&amp;Activate entry</source>
         <translation>Eintrag a&amp;ktivieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="276"/>
+        <location filename="timemainwindow.cpp" line="295"/>
         <source>Add &amp;entry</source>
         <translation>Eintrag &amp;hinzufügen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="280"/>
+        <location filename="timemainwindow.cpp" line="299"/>
         <source>&amp;Delete entry</source>
         <translation>Eintrag &amp;löschen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="285"/>
+        <location filename="timemainwindow.cpp" line="304"/>
         <source>Set &amp;on-call times...</source>
         <translation>Be&amp;reitschaftszeiten setzen...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="290"/>
+        <location filename="timemainwindow.cpp" line="309"/>
         <source>Set special remuneration &amp;times...</source>
         <translation>Setze Sonderzei&amp;t Kategorien...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="294"/>
+        <location filename="timemainwindow.cpp" line="313"/>
         <source>Choose &amp;background colour...</source>
         <translation>&amp;Hintergrundfarbe wählen...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="296"/>
+        <location filename="timemainwindow.cpp" line="315"/>
         <source>&amp;Remove background colour</source>
         <translation>Hintergrun&amp;dfarbe entfernen</translation>
     </message>
@@ -1668,27 +1793,27 @@ Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translat
         <translation type="vanished">&amp;Zu selektiertem Konto in &apos;Alle Konten&apos; springen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="324"/>
+        <location filename="timemainwindow.cpp" line="343"/>
         <source>Increase time</source>
         <translation>Zeit erhöhen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="326"/>
+        <location filename="timemainwindow.cpp" line="345"/>
         <source>Decrease time</source>
         <translation>Zeit verringern</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="512"/>
+        <location filename="timemainwindow.cpp" line="548"/>
         <source>Minimal decrease time</source>
         <translation>Zeit minimal veringern</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="329"/>
+        <location filename="timemainwindow.cpp" line="348"/>
         <source>Increase time fast</source>
         <translation>Zeit schnell erhöhen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="298"/>
+        <location filename="timemainwindow.cpp" line="317"/>
         <source>Download sh files</source>
         <translation>SH Dateien herunterladen</translation>
     </message>
@@ -1697,113 +1822,118 @@ Beachten Sie bittte die Hilfefunktion für weitere Informationen (F1)!</translat
         <translation type="vanished">Einstellungen importieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="310"/>
+        <location filename="timemainwindow.cpp" line="329"/>
         <source>S&amp;how selected account in &apos;all accounts&apos;</source>
         <translation>Ausgewä&amp;hltes Konto in &apos;Alle Konten&apos; zeigen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="331"/>
+        <location filename="timemainwindow.cpp" line="350"/>
         <source>Decrease time fast</source>
         <translation>Zeit schnell verringern</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="334"/>
+        <location filename="timemainwindow.cpp" line="353"/>
         <source>Increase accountable time</source>
         <translation>Abrechenbare Zeit erhöhen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="336"/>
+        <location filename="timemainwindow.cpp" line="355"/>
         <source>Decrease accountable time</source>
         <translation>Abrechenbare Zeit verringern</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="339"/>
+        <location filename="timemainwindow.cpp" line="358"/>
         <source>Increase accountable time fast</source>
         <translation>Abrechenbare Zeit schnell erhöhen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="341"/>
+        <location filename="timemainwindow.cpp" line="360"/>
         <source>Decrease accountable time fast</source>
         <translation>Abrechenbare Zeit schnell verringern</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="343"/>
+        <location filename="timemainwindow.cpp" line="362"/>
         <source>Toggle regulated overtime mode</source>
         <translation>Modus für regulierte Mehrarbeit aktivieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="346"/>
+        <location filename="timemainwindow.cpp" line="365"/>
         <source>Toggle other overtime mode</source>
         <translation>Modus für sonstige Mehrarbeit aktivieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="350"/>
+        <location filename="timemainwindow.cpp" line="369"/>
         <source>Toggle night mode</source>
         <translation>Nachtmodus aktivieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="354"/>
+        <location filename="timemainwindow.cpp" line="373"/>
         <source>Toggle public holiday mode</source>
         <translation>Feiertagsmodus aktivieren</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="590"/>
+        <location filename="timemainwindow.cpp" line="626"/>
         <source>cannot start ipc server</source>
         <translation>Kann IPC-Server nicht starten</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="664"/>
+        <location filename="timemainwindow.cpp" line="722"/>
         <source>The last active account was %1/%2. It seems to have been closed or renamed. Please activate a new account to start time accounting!</source>
         <translation>Ihr zuletzt aktives Konto war %1/%2. Wahrscheinlich wurde es geschlossen oder umbenannt. Bitte wählen Sie nun ein neues Konto aus, damit die Zeiterfassung beginnt!</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="693"/>
+        <location filename="timemainwindow.cpp" line="751"/>
         <source>Power Buttons</source>
         <translation>Power Buttons</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="740"/>
+        <location filename="timemainwindow.cpp" line="798"/>
         <source>suspend</source>
         <translation>Anhalten</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="751"/>
+        <location filename="timemainwindow.cpp" line="809"/>
         <source>resume</source>
         <translation>Fortsetzen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="753"/>
+        <location filename="timemainwindow.cpp" line="811"/>
         <source>resume %2; suspend was %1</source>
         <translation>Fortsetzen %2; Angehalten bei %1</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="759"/>
-        <location filename="timemainwindow.cpp" line="767"/>
+        <location filename="timemainwindow.cpp" line="817"/>
+        <location filename="timemainwindow.cpp" line="825"/>
         <source>sctime: resume</source>
         <translation>sctime: fortsetzen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="760"/>
+        <location filename="timemainwindow.cpp" line="818"/>
         <source>The machine was suspended from %1 until %2. Please check and adjust accounted time if necessary!</source>
         <translation>Der Rechner war von %1 bis %2 angehalten. Bitte die Arbeitszeiten gegebenenfalls überarbeiten!</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="768"/>
+        <location filename="timemainwindow.cpp" line="826"/>
         <source>The machine was suspended from %1 until %2. Should this time be added to the active account?</source>
         <translation>Der Rechner war von %1 bis %2 angehalten. Soll diese Zeit auf dem aktiven Konto gutgeschrieben werden?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="801"/>
+        <location filename="timemainwindow.cpp" line="875"/>
+        <source>Drift of %1s auto-corrected</source>
+        <translation>Abweichung von %1s autokorrigiert</translation>
+    </message>
+    <message>
+        <location filename="timemainwindow.cpp" line="878"/>
         <source>Drift is %2s (%1)</source>
         <translation>Drift ist %2s (%1)</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="813"/>
+        <location filename="timemainwindow.cpp" line="890"/>
         <source>sctime: Programm was frozen</source>
         <translation>sctime: Programm war stehen geblieben</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="814"/>
+        <location filename="timemainwindow.cpp" line="891"/>
         <source>The program (or whole system) seems to have hung for %1min or system time was changed.
 Should the time difference be added to the active account?
 (current system time: %2)</source>
@@ -1812,79 +1942,115 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
 (Aktuelle Systemzeit: %2)</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="819"/>
+        <location filename="timemainwindow.cpp" line="896"/>
         <source>sctime: system time set back</source>
         <translation>sctime: Systemzeit zurückgestellt</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="820"/>
+        <location filename="timemainwindow.cpp" line="897"/>
         <source>The system&apos;s time has been set back by %1min to %2.Should this time be subtracted from the active account?
 </source>
         <translation>Die Systemzeit wurde um %1min auf %2 zurückgestellt. Soll die Arbeitszeit auf dem aktiven Unterkonto um diesen Betrag verringert werden?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="870"/>
+        <location filename="timemainwindow.cpp" line="947"/>
         <source>Minute-signal %1s arrived late (%2)</source>
         <translation>Minuten-Signal %1s verspätet (%2)</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1061"/>
-        <location filename="timemainwindow.cpp" line="1405"/>
-        <location filename="timemainwindow.cpp" line="2303"/>
+        <location filename="timemainwindow.cpp" line="1138"/>
+        <location filename="timemainwindow.cpp" line="1502"/>
+        <location filename="timemainwindow.cpp" line="2452"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2138"/>
+        <location filename="timemainwindow.cpp" line="1245"/>
+        <source>saveWithTimeout: locked, skipping save: %1</source>
+        <translation>saveWithTimeout: gelocked, überspringe speichern: %1</translation>
+    </message>
+    <message>
+        <location filename="timemainwindow.cpp" line="2238"/>
+        <source>Intro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="timemainwindow.cpp" line="2247"/>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="timemainwindow.cpp" line="2265"/>
+        <source>Opening help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="timemainwindow.cpp" line="2266"/>
+        <source>Opened URL in browser automatically. If that did not work, you can try to open it manually:
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="timemainwindow.cpp" line="2285"/>
         <source>&lt;h1&gt;&lt;img src=&apos;:/scLogo_15Farben&apos; /&gt;sctime&lt;/h1&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Version:&lt;/td&gt;&lt;td&gt;%1&lt;/td&gt;&lt;/tr&gt;%4&lt;tr&gt;&lt;td&gt;Qt-Version:&lt;/td&gt;&lt;td&gt;%2 (development)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;%3 (runtime)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Developers:&lt;/td&gt;&lt;td&gt;Johannes Abt, Alexander Wuetz, Florian Schmitt&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Patches:&lt;/td&gt;&lt;td&gt;Marcus Camen&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Mac:&lt;/td&gt;&lt;td&gt;Michael Weiser&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;New icons:&lt;/td&gt;&lt;td&gt;Mayra Delgado&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;RT:&lt;/td&gt;&lt;td&gt;&lt;a href=&apos;mailto:zeittools-rt@science-computing.de&apos;&gt;zeittools-rt@science-computing.de&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Project page:&lt;/td&gt;&lt;td&gt;&lt;a href=&apos;http://github.com/scVENUS/sctime/&apos;&gt;http://github.com/scVENUS/sctime/&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;This program is licensed under the GNU Public License v3.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2649"/>
+        <location filename="timemainwindow.cpp" line="2798"/>
         <source>permanently offline</source>
         <translation>dauerhaft offline</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2652"/>
+        <location filename="timemainwindow.cpp" line="2801"/>
         <source>offline</source>
         <translation>offline</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2654"/>
+        <location filename="timemainwindow.cpp" line="2803"/>
         <source>online</source>
         <translation>online</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2677"/>
+        <location filename="timemainwindow.cpp" line="2826"/>
         <source>sctime: invalid session</source>
         <translation>sctime: ungültige Session</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2678"/>
-        <source>Your session seems to be invalid. Please confirm to open a new window to refresh it. Please provide your credentials there if your browser asks for them.</source>
-        <translation>Deine Session scheint ungültig zu sein. Bitte bestätige, um ein neues Fenster zu öffnen in dem sie erneuert werden kann. Bitte gib dort Deine Login-Daten an, falls der Browser sie benötigt.</translation>
+        <location filename="timemainwindow.cpp" line="2827"/>
+        <source>Your session seems to be invalid. Press OK to open a new window to refresh it. Please provide your credentials there if your browser asks for them. Alternativly you can go permanently offline.</source>
+        <translation>Deine Session scheint ungültig zu sein. Bitte drücke OK, um ein neues Fenster zu öffnen in dem sie erneuert werden kann. Bitte gib dort Deine Login-Daten an, falls der Browser sie benötigt. Alternativ kannst Du auch dauerhaft offline gehen.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2683"/>
+        <location filename="timemainwindow.cpp" line="2829"/>
+        <source>Go Offline</source>
+        <translation>Gehe Offline</translation>
+    </message>
+    <message>
+        <source>Your session seems to be invalid. Please confirm to open a new window to refresh it. Please provide your credentials there if your browser asks for them.</source>
+        <translation type="vanished">Deine Session scheint ungültig zu sein. Bitte bestätige, um ein neues Fenster zu öffnen in dem sie erneuert werden kann. Bitte gib dort Deine Login-Daten an, falls der Browser sie benötigt.</translation>
+    </message>
+    <message>
+        <location filename="timemainwindow.cpp" line="2852"/>
         <source>Refresh Session</source>
         <translation>Session erneuern</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2718"/>
-        <location filename="timemainwindow.cpp" line="2805"/>
-        <location filename="timemainwindow.cpp" line="2917"/>
+        <location filename="timemainwindow.cpp" line="2899"/>
+        <location filename="timemainwindow.cpp" line="2990"/>
+        <location filename="timemainwindow.cpp" line="3109"/>
         <source>sctime: unresolvable conflict</source>
         <translation>sctime: unlösbarer Konflikt</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2719"/>
-        <location filename="timemainwindow.cpp" line="2806"/>
-        <location filename="timemainwindow.cpp" line="2918"/>
+        <location filename="timemainwindow.cpp" line="2900"/>
+        <location filename="timemainwindow.cpp" line="2991"/>
+        <location filename="timemainwindow.cpp" line="3110"/>
         <source>There seems to be a conflict with another session that could not be resolved. Please check your entries.</source>
         <translation>Es scheint ein Konflikt mit einer anderen Session zu bestehen, der nicht aufgelöst werden konnte, Bitte prüfe Deine Zeiteinträge.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="3011"/>
+        <location filename="timemainwindow.cpp" line="3239"/>
         <source>There were some conflicts during sync. Please check and save the data for the following dates:
 
   %1</source>
@@ -1893,12 +2059,12 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
   %1</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="3017"/>
+        <location filename="timemainwindow.cpp" line="3245"/>
         <source>sctime: Conflicts during sync</source>
         <translation>sctime: Konflikte während der Synchronisation</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="3028"/>
+        <location filename="timemainwindow.cpp" line="3256"/>
         <source>Sync finished successfully</source>
         <translation>Synchronisation erfolgreich abgeschlossen</translation>
     </message>
@@ -1915,89 +2081,89 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation type="vanished">Warnung: die gesetzlich zulässige Arbeitszeit wurde überschritten.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1220"/>
+        <location filename="timemainwindow.cpp" line="1317"/>
         <source>An error occured when saving data. Please check permissions and connectivity of your target directory. If this error persists and you close sctime, you will loose all changes since the last successful save (an automatic save should occur every 5 minutes).</source>
         <translation>Ein Fehler trat beim Speichern auf. Bitte überprüfen sie Berechtigungen und Verbindung zum Zielverzeichnis. Wenn dieser Fehler weiter besteht und Sie sctime beenden, gehen alle Änderungen seit der letzten erfolgreichen Speicherung verloren (ein automatisches Speichern findet alle 5 Minuten statt).</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1224"/>
+        <location filename="timemainwindow.cpp" line="1321"/>
         <source>An error occured when saving data.</source>
         <translation>Ein Fehler trat beim speichern von Daten auf.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1251"/>
+        <location filename="timemainwindow.cpp" line="1348"/>
         <source>Unclear state of Lockfile. Please check that there is no other instance of sctime running and that you have access to the sctime config directory. Otherwise loss of data may occur.</source>
         <oldsource>Unclear state of Logfile. Please check that there is no other instance of sctime running and that you have access to the sctime config directory. Otherwise loss of data may occur.</oldsource>
         <translation>Uneindeutiger Zustand des Lockfiles. Bitte prüfen Sie dass keine anderen Instanzen von sctime gestartet sind, und dass das sctime-Konfigurationsverzeichnis erreichbar ist. Andernfalls kann Datenverlust auftreten.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1255"/>
+        <location filename="timemainwindow.cpp" line="1352"/>
         <source>Unkown state of lockfile.</source>
         <oldsource>Unkown state of logfile.</oldsource>
         <translation>Unklarer Zustand des Lockfiles.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1440"/>
+        <location filename="timemainwindow.cpp" line="1537"/>
         <source>Could not switch day due to problems with saving. ATTENTION: that also means that the clock might be running on the wrong day. Please fix the problem with saving and switch manually to the current date afterwards.</source>
         <translation>Konnte den Tag nicht ändern, da ein Fehler beim Speichern auftrat. ACHTUNG: das kann bedeuten, dass die Uhr für den falschen Tag läuft. Bitte beheben Sie das Speicherproblem und wechseln Sie danach manuell auf das heutige Datum.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1510"/>
+        <location filename="timemainwindow.cpp" line="1610"/>
         <source>Visible day set to: </source>
         <translation>Der sichtbare tag wurde gesetzt auf: </translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1514"/>
+        <location filename="timemainwindow.cpp" line="1614"/>
         <source>Today is now: </source>
         <translation>Heute ist jetzt: </translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1549"/>
+        <location filename="timemainwindow.cpp" line="1651"/>
         <source>Commiting account list...</source>
         <translation>Aktualisiere Kontenliste...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1621"/>
+        <location filename="timemainwindow.cpp" line="1723"/>
         <source>Remove from personal accounts</source>
         <translation>Aus persönlichen Konten entfernen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1622"/>
+        <location filename="timemainwindow.cpp" line="1724"/>
         <source>Do you really want to remove this item from your personal accounts?</source>
         <translation>Möchten Sie das gewählte Element wirklich aus Ihren persönlichen Konten entfernen?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1723"/>
+        <location filename="timemainwindow.cpp" line="1825"/>
         <source>Do you also want to move the begin of the current working intervall by %1 minutes?</source>
         <translation>Möchtest Du auch den Start des aktuellen Arbeitsintervalls um %1 Minuten vorverschieben?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1727"/>
+        <location filename="timemainwindow.cpp" line="1829"/>
         <source>Do you also want to add a pause of %1 minutes at the end of the current working interval?</source>
         <translation>Möchtest Du auch eine Pause von %1 Minuten zum Ende des aktuellen Arbeitsintervalls einfügen?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1731"/>
+        <location filename="timemainwindow.cpp" line="1833"/>
         <source>Also adapt punch clock?</source>
         <translation>Anwesenheitszeiten ebenfalls anpassen?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1823"/>
+        <location filename="timemainwindow.cpp" line="1925"/>
         <source>Account menu</source>
         <translation>Kontomenü</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2045"/>
+        <location filename="timemainwindow.cpp" line="2149"/>
         <source>Please specify only one entry for accounts of type &quot;%1&quot;!</source>
         <translation>Bitte nur einen Eintrag für Konten des Typs „%1”!</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2359"/>
+        <location filename="timemainwindow.cpp" line="2508"/>
         <source>sctime: Additional Information about Licensing</source>
         <translation>sctime: Weitere Lizenz Information</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2359"/>
+        <location filename="timemainwindow.cpp" line="2508"/>
         <source>sctime licensing</source>
         <translation>sctime Lizenz</translation>
     </message>
@@ -2010,66 +2176,66 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation type="vanished">Es gibt einen anderen Zeiteintrag mit dem gleichen Kommentar und den korrekten Sonderzeitmarkierungen. Soll zu diesem Zeiteintrag gewechselt werden? Andernfalls wird ein neuer Zeiteintrag erzeugt.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2411"/>
-        <location filename="timemainwindow.cpp" line="2426"/>
+        <location filename="timemainwindow.cpp" line="2560"/>
+        <location filename="timemainwindow.cpp" line="2575"/>
         <source>Unregulated OT</source>
         <translation>Sonstige MA</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2413"/>
-        <location filename="timemainwindow.cpp" line="2424"/>
+        <location filename="timemainwindow.cpp" line="2562"/>
+        <location filename="timemainwindow.cpp" line="2573"/>
         <source>Regulated OT</source>
         <translation>Regulierte MA</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2434"/>
+        <location filename="timemainwindow.cpp" line="2583"/>
         <source>Holiday</source>
         <translation>Feiertag</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2442"/>
+        <location filename="timemainwindow.cpp" line="2591"/>
         <source>Night</source>
         <translation>Nacht</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2465"/>
+        <location filename="timemainwindow.cpp" line="2614"/>
         <source>sctime: switch nightmode on?</source>
         <translation>sctime: Nachtmodus einschalten?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2466"/>
+        <location filename="timemainwindow.cpp" line="2615"/>
         <source>It is %1. Should I switch to night mode, so you get special remuneration for working late? Please also check your companies regulations before enabling nightmode.</source>
         <oldsource>It is late. Should I switch to night mode, so you get special remuneration for working late? Please also check your companies regulations before enabling nightmode</oldsource>
         <translation>Es ist %1. Soll ich den Nachtmodus einschalten, und damit Vergütung für Sonderzeit beantragen? Bitte prüfen Sie auch die gültigen Regelungen des Unternehmens, bevor Sie den Nachtmodus aktiveren.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2472"/>
+        <location filename="timemainwindow.cpp" line="2621"/>
         <source>sctime: switch nightmode off?</source>
         <translation>sctime: Nachtmodus ausschalten?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2473"/>
+        <location filename="timemainwindow.cpp" line="2622"/>
         <source>It is %1. Should I switch night mode off? Otherwise you apply for further special remuneration. Please also check your companies regulations when keeping nightmode enabled.</source>
         <oldsource>Night has passed. Should I switch night mode off? Otherwise you apply for further special remuneration. Please also check your companies regulations when keeping nightmode enabled.</oldsource>
         <translation>Es ist %1. Soll der Nachtmodus abgeschaltet werden? Andernfalls wird weiterhin Vergütung für Sonderzeit beantragt. Bitte prüfen Sie auch die gültigen Regelungen des Unternehmens, wenn Sie den Nachtmodus aktiv lassen.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2499"/>
+        <location filename="timemainwindow.cpp" line="2648"/>
         <source>sctime: move worked time to new entry</source>
         <translation>sctime: geleistete Zeit zu neuem Eintrag verschieben</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2500"/>
+        <location filename="timemainwindow.cpp" line="2649"/>
         <source>Should %1 minutes be moved to the new selected entry?</source>
         <translation>Sollen %1 Minuten zum neu ausgewählten Zeitrag verschoben werden?</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2533"/>
+        <location filename="timemainwindow.cpp" line="2682"/>
         <source>sctime: could not move worked time to new entry</source>
         <translation>sctime: kann geleistete Zeit nicht zu neuem Eintrag verschieben</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2534"/>
+        <location filename="timemainwindow.cpp" line="2683"/>
         <source>A date change has occurrred - therefore %1 minutes of work time won&apos;t be moved automatically to the new entry. Please check your entries manually.</source>
         <translation>Ein Datumswechsel ist aufgetreten - deshalb können die %1 Minuten an geleisteter Zeit nicht automatisch auf den neuen Zeiteintrag verschoben werden. Bitte korrigieren Sie Ihre Zeiteinträge manuell.</translation>
     </message>
@@ -2078,17 +2244,17 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation type="obsolete">: wird ignoriert (%1)</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1077"/>
+        <location filename="timemainwindow.cpp" line="1154"/>
         <source>%1: Accounting stopped (%2, +%3s)</source>
         <translation>%1: Erfassung angehalten (%2, +%3s)</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1088"/>
+        <location filename="timemainwindow.cpp" line="1165"/>
         <source>Pause</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1090"/>
+        <location filename="timemainwindow.cpp" line="1167"/>
         <source>ERROR: seconds since tick: %1</source>
         <translation>Fehler: Sekunden seit Tick: %1</translation>
     </message>
@@ -2101,22 +2267,22 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation type="vanished">Die Zeiterfassung wurde um %1 Uhr angehalten. Ende der Pause mit OK.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1129"/>
+        <location filename="timemainwindow.cpp" line="1206"/>
         <source>End of break: </source>
         <translation>Ende der Pause: </translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1239"/>
+        <location filename="timemainwindow.cpp" line="1336"/>
         <source>The program will quit in a few seconds without saving.</source>
         <translation>Das Programm beendet sich in wenigen Sekunden ohne zu speichern.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1242"/>
+        <location filename="timemainwindow.cpp" line="1339"/>
         <source>The program will now quit without saving.</source>
         <translation>Das Programm beendet sich ohne zu speichern.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1405"/>
+        <location filename="timemainwindow.cpp" line="1502"/>
         <source>Cannot delete active entry</source>
         <translation>Kann aktiven Eintrag nicht löschen</translation>
     </message>
@@ -2125,22 +2291,22 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation type="vanished">Tag gesetzt auf: </translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1521"/>
+        <location filename="timemainwindow.cpp" line="1621"/>
         <source> -- This day has already been checked in!</source>
         <translation> -- Dieser Tag ist bereits eingecheckt!</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1541"/>
+        <location filename="timemainwindow.cpp" line="1643"/>
         <source>Reading account list...</source>
         <translation>Kontenliste laden...</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1566"/>
+        <location filename="timemainwindow.cpp" line="1668"/>
         <source>Account list successfully read.</source>
         <translation>Kontenliste geladen.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="1706"/>
+        <location filename="timemainwindow.cpp" line="1808"/>
         <source>sctime - </source>
         <translation>sctime - </translation>
     </message>
@@ -2153,22 +2319,21 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation type="vanished">OK</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2124"/>
+        <location filename="timemainwindow.cpp" line="2228"/>
         <source>sctime: Help</source>
         <translation>sctime: Hilfe</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2124"/>
         <source>sctime help</source>
-        <translation>sctime help</translation>
+        <translation type="vanished">sctime help</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2132"/>
+        <location filename="timemainwindow.cpp" line="2279"/>
         <source>About sctime</source>
         <translation>Über sctime</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2132"/>
+        <location filename="timemainwindow.cpp" line="2279"/>
         <source>sctime about</source>
         <translation>sctime about</translation>
     </message>
@@ -2178,24 +2343,24 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation type="obsolete">&lt;h1&gt;&lt;img src=&apos;:/scLogo_15Farben&apos; /&gt;sctime&lt;/h1&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Version:&lt;/td&gt;&lt;td&gt;%1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Qt-Version:&lt;/td&gt;&lt;td&gt;%2 (Entwicklung)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;%3 (Laufzeit)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Entwickler:&lt;/td&gt;&lt;td&gt;Johannes Abt, Alexander Wütz, Florian Schmitt&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Patches:&lt;/td&gt;&lt;td&gt;Marcus Camen&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Mac:&lt;/td&gt;&lt;td&gt;Michael Weiser&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Neue Icons:&lt;/td&gt;&lt;td&gt;Mayra Delgado&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Projektseite:&lt;/td&gt;&lt;td&gt;&lt;a href=&apos;http://sourceforge.net/projects/sctime/&apos;&gt;http://sourceforge.net/projects/sctime/&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Dieses Programm ist unter der GNU Public License v2 lizenziert.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2155"/>
+        <location filename="timemainwindow.cpp" line="2302"/>
         <source>sctime: Messages</source>
         <translation>sctime: Meldungen</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2155"/>
+        <location filename="timemainwindow.cpp" line="2302"/>
         <source>sctime message log</source>
         <translation>sctime message log</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2171"/>
-        <location filename="timemainwindow.cpp" line="2197"/>
+        <location filename="timemainwindow.cpp" line="2318"/>
+        <location filename="timemainwindow.cpp" line="2344"/>
         <source>sctime: On-call times</source>
         <translation>sctime: Bereitschaftszeiten</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2171"/>
-        <location filename="timemainwindow.cpp" line="2197"/>
+        <location filename="timemainwindow.cpp" line="2318"/>
+        <location filename="timemainwindow.cpp" line="2344"/>
         <source>subaccount not found!</source>
         <translation>Unterkonto nicht gefunden!</translation>
     </message>
@@ -2212,7 +2377,7 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation type="vanished">Bitte wählen Sie die geleisteten Bereitschaften für dieses Unterkonto aus.</translation>
     </message>
     <message>
-        <location filename="timemainwindow.cpp" line="2304"/>
+        <location filename="timemainwindow.cpp" line="2453"/>
         <source>Warning: The entered comment contains a character that is not part of ISO-8859-1 and might not render correctly on some platforms. This may cause problems with custom reporting scripts.</source>
         <translation>Warnung: In dem von Ihnen eingegebenen Kommentar kommt ein Zeichen vor, das mit ISO-8859-1 und somit auf manchen Plattformen nicht darstellbar ist. Dies führt eventuell zu Problemen mit Auswerteskripten.</translation>
     </message>
@@ -2250,59 +2415,59 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
         <translation>Kommentar</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="124"/>
+        <location filename="unterkontodialog.cpp" line="123"/>
         <source>Tags</source>
         <translation>Tags</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="130"/>
+        <location filename="unterkontodialog.cpp" line="129"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="138"/>
+        <location filename="unterkontodialog.cpp" line="137"/>
         <source>Time</source>
         <oldsource>Time:</oldsource>
         <translation>Zeit</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="144"/>
+        <location filename="unterkontodialog.cpp" line="143"/>
         <source>Accountable time</source>
         <oldsource>Accountable time:</oldsource>
         <translation>Abzurechnende Zeit</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="151"/>
+        <location filename="unterkontodialog.cpp" line="150"/>
         <source>Special Remuneration Categories</source>
         <translation>Sonderzeitkategorien</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="166"/>
+        <location filename="unterkontodialog.cpp" line="165"/>
         <source>Description: </source>
         <translation>Beschreibung: </translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="172"/>
+        <location filename="unterkontodialog.cpp" line="171"/>
         <source>Responsible: </source>
         <translation>Verantwortlich: </translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="186"/>
+        <location filename="unterkontodialog.cpp" line="185"/>
         <source>Activate entry</source>
         <translation>Eintrag aktivieren</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="191"/>
+        <location filename="unterkontodialog.cpp" line="190"/>
         <source>Select as personal account</source>
         <translation>In die persönlichen Konten übernehmen</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="320"/>
+        <location filename="unterkontodialog.cpp" line="342"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="unterkontodialog.cpp" line="320"/>
+        <location filename="unterkontodialog.cpp" line="342"/>
         <source>Error: The entered description contains a character that cannot be displayed in your locale.</source>
         <translation>Fehler: In dem von Ihnen eingegebenen Kommentar kommt ein Zeichen vor, das in Ihrem Locale nicht darstellbar ist.</translation>
     </message>
@@ -2310,49 +2475,119 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
 <context>
     <name>XMLReader</name>
     <message>
-        <location filename="xmlreader.cpp" line="62"/>
+        <location filename="xmlreader.cpp" line="66"/>
         <source>sctime: opening configuration file</source>
         <translation>sctime: Konfigurationsdatei öffnen</translation>
     </message>
     <message>
-        <location filename="xmlreader.cpp" line="63"/>
+        <location filename="xmlreader.cpp" line="67"/>
         <source>%1 : %2</source>
         <translation>%1 : %2</translation>
     </message>
     <message>
-        <location filename="xmlreader.cpp" line="207"/>
+        <location filename="xmlreader.cpp" line="125"/>
+        <source>Got Status %2 on reading from server, going offline: %1</source>
+        <translation>Status %2 beim lesen von Server, gehe offline: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="129"/>
+        <source>Unauthorized access on reading from server: %1</source>
+        <translation>Nicht authorisiert beim lesen von Server:%1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="147"/>
+        <source>empty response from server: %1</source>
+        <translation>leere Antwort vom Server: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="161"/>
+        <source>could not access remote and local file does not exist: %1</source>
+        <translation>Kein Zugriff auf Remote und lokale Datei nicht existent: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="163"/>
+        <source>local file does not exist: %1</source>
+        <translation>Lokale Datei existriert nicht: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="174"/>
+        <source>error reading local file: %1</source>
+        <translation>Fehler beim lesen von lokaler Datei: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="176"/>
+        <source>local file is empty or has no root element: %1</source>
+        <translation>Lokale Datei ist leer oder hat kein Root-Element: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="182"/>
+        <source>could not access remote, using local file: %1</source>
+        <translation>Kein Zugriff auf Remote, verwende lokale Datei: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="186"/>
+        <source>using unmerged file as remote: %1</source>
+        <translation>Verwende ungemergte Datei alse Remote: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="189"/>
+        <source>error reading unmerged file: %1</source>
+        <translation>Fehler beim lesen von ungemergter Datei: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="216"/>
+        <source>total time differs between local and remote file. remote: %1 seconds local: %2 seconds. RemoteDate: %3 LocalDate: %4</source>
+        <translation>Gesamtzeit weicht ab zwischen lokaler und remote Datei. remote: %1 Sekunden lolal: %2 Sekunden. Remote Datum: %3 Lokales Datum: %4</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="218"/>
+        <source>total time in remote file is 0. RemoteDate: %1 LocalDate: %2</source>
+        <translation>Gesamtzeit im Remote-File ist 0. Remote Datum: %1 Lokales Datum: %2</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="243"/>
         <source>Autocontinue: using newer remote version.</source>
         <translation>Autocontinue: verwende neuere remote Version.</translation>
     </message>
     <message>
-        <location filename="xmlreader.cpp" line="224"/>
+        <location filename="xmlreader.cpp" line="260"/>
         <source>Autocontinue: using newer local version.</source>
         <translation>Autocontinue: verwende neuere lokale Version.</translation>
     </message>
     <message>
-        <location filename="xmlreader.cpp" line="241"/>
+        <location filename="xmlreader.cpp" line="277"/>
         <source>conflict detected. localid is %1 remoteid is %2</source>
         <translation>Konflikt gefunden. Lokale ID ist %1 Remote ID ist %2</translation>
     </message>
     <message>
-        <location filename="xmlreader.cpp" line="192"/>
-        <location filename="xmlreader.cpp" line="202"/>
-        <location filename="xmlreader.cpp" line="219"/>
+        <location filename="xmlreader.cpp" line="228"/>
+        <location filename="xmlreader.cpp" line="238"/>
+        <location filename="xmlreader.cpp" line="255"/>
         <source>two different clients have written a settings file with the same date.</source>
         <translation>Zwei verschiedene Clients haben eine Settings-Datei mit gleichem Datum geschrieben.</translation>
     </message>
     <message>
-        <location filename="xmlreader.cpp" line="200"/>
+        <location filename="xmlreader.cpp" line="63"/>
+        <source>sctime: opening configuration</source>
+        <translation>sctime: Konfiguration laden</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="64"/>
+        <source>sctime could not open the configuration. sctime will use default settings. If you have an existing configuration from a local sctime installation, you can upload it by using settings-&gt;import.</source>
+        <translation>sctime konnte die Konfiguration nicht laden. sctime nutzt deshalb seine Standardeinstellungen. Wenn Du eine einstierende Konfiguration aus einer lokalen Installation übernehmen willst, kannst Du sie über settings-&gt;import hochladen.</translation>
+    </message>
+    <message>
+        <location filename="xmlreader.cpp" line="236"/>
         <source>using newer remote version.</source>
         <translation>vwerwende neuere Remot Version.</translation>
     </message>
     <message>
-        <location filename="xmlreader.cpp" line="217"/>
+        <location filename="xmlreader.cpp" line="253"/>
         <source>using newer local version.</source>
         <translation>verwende neuere lokale Version.</translation>
     </message>
     <message>
-        <location filename="xmlreader.cpp" line="257"/>
+        <location filename="xmlreader.cpp" line="293"/>
         <source>sctime: reading configuration file</source>
         <translation>sctime: Konfigurationsdatei lesen</translation>
     </message>
@@ -2371,8 +2606,19 @@ Soll die entstandene Differenz auf das aktive Unterkonto gutschrieben werden?
     </message>
     <message>
         <location filename="xmlwriter.cpp" line="64"/>
-        <source>Communication error on writing to server, going offline</source>
-        <translation>Fehler beim schreiben auf den Server, gehe offline</translation>
+        <source>Communication error on writing to server, going offline: %1</source>
+        <oldsource>Communication error on writing to server, going offline</oldsource>
+        <translation>Fehler beim schreiben auf den Server, gehe offline: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlwriter.cpp" line="75"/>
+        <source>Unauthorized access on writing to server: %1</source>
+        <translation>Nicht authorisierter Zugriff beim Schreiben auf Server: %1</translation>
+    </message>
+    <message>
+        <location filename="xmlwriter.cpp" line="78"/>
+        <source>Missing sctime-rest-response header: %1</source>
+        <translation>Fehlender sctime-rest-response Header: %1</translation>
     </message>
 </context>
 </TS>

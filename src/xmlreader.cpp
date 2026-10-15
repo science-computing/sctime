@@ -54,13 +54,18 @@ QFile* XMLReader::openFile(bool handleerr) {
     if (!f->open(QIODevice::ReadOnly)&&handleerr)
     {
         logError(f->fileName() + ": " + f->errorString());
-        if (global || f->exists())
+        if (global || f->exists()) // keine Fehlerausgabe, wenn "zeit-HEUTE.xml" fehlt
         {
             if (global)
                 settings->backupSettingsXml = false;
-            // keine Fehlerausgabe, wenn "zeit-HEUTE.xml" fehlt
+
+            #ifdef __EMSCRIPTEN__ // avoid bothering the user with details about the virtual wasm file system
+            auto msgbox=new QMessageBox(QMessageBox::Warning, tr("sctime: opening configuration"),
+                           tr("sctime could not open the configuration. sctime will use default settings. If you have an existing configuration from a local sctime installation, you can upload it by using settings->import."),QMessageBox::NoButton, dynamic_cast<QWidget*>(this->parent()));
+            #else
             auto msgbox=new QMessageBox(QMessageBox::Warning, tr("sctime: opening configuration file"),
                            tr("%1 : %2").arg(f->fileName(), f->errorString()),QMessageBox::NoButton, dynamic_cast<QWidget*>(this->parent()));
+            #endif
             connect(msgbox, &QMessageBox::finished,[=](){
                msgbox->deleteLater();
             });
@@ -115,11 +120,13 @@ void XMLReader::parse(QIODevice *input)
         isrestresponse=(sctimerestresponse=="true");
         #endif
         if ((netinput->error()!=QNetworkReply::NoError)||(!isrestresponse)) {
-            logError("trying to open local file");
+            logError("could not get remote file, trying to open local file");
             if (netinput->attribute(QNetworkRequest::HttpStatusCodeAttribute)!=404 && !settings->restCurrentlyOffline()) {
+               logError(tr("Got Status %2 on reading from server, going offline: %1").arg(netinput->url().toString()).arg(netinput->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()));
                emit offlineSwitched(true);
             }
             if ((netinput->attribute(QNetworkRequest::HttpStatusCodeAttribute)==401)||(!isrestresponse)) {
+               logError(tr("Unauthorized access on reading from server: %1").arg(netinput->url().toString()));
                emit unauthorized();
             }
             auto f=openFile(true);
@@ -136,6 +143,9 @@ void XMLReader::parse(QIODevice *input)
             return;
         }
         QByteArray ba=netinput->readAll();
+        if (ba.isEmpty()) {
+            logError(tr("empty response from server: %1").arg(netinput->url().toString()));
+        }
         readSuccessRemote = docremote.setContent(qUncompress(ba), &errMsg, &errLine, &errCol);
         
         input->deleteLater();
@@ -147,6 +157,11 @@ void XMLReader::parse(QIODevice *input)
     }
     if (fileinput!=NULL) {
       if (!readSuccessRemote&&!fileinput->exists()) {
+        if (netinput) {
+          logError(tr("could not access remote and local file does not exist: %1").arg(fileinput->fileName()));
+        } else {
+          logError(tr("local file does not exist: %1").arg(fileinput->fileName()));
+        }
         emit settingsPartRead(global, abtList, pcl, false, "");
         return;
       }
@@ -155,11 +170,24 @@ void XMLReader::parse(QIODevice *input)
       unmergedExists = unmerged.exists();
       readSuccessLocal = doclocal.setContent(fileinput, &errMsg, &errLine, &errCol);
       fileinput->close();
+      if (!readSuccessLocal) {
+        logError(tr("error reading local file: %1").arg(fileinput->fileName()));
+      } else if (doclocal.documentElement().isNull()) {
+        logError(tr("local file is empty or has no root element: %1").arg(fileinput->fileName()));
+        readSuccessLocal = false;
+      }
 
       if (!readSuccessRemote) {
+        if (netinput) {
+            logError(tr("could not access remote, using local file: %1").arg(fileinput->fileName()));
+        }
         if (unmergedExists) {
             if (unmerged.open(QIODevice::ReadOnly)) {
+                logError(tr("using unmerged file as remote: %1").arg(unmerged.fileName()));
                 readSuccessRemote = docremote.setContent(&unmerged, &errMsg, &errLine, &errCol);
+                if (!readSuccessRemote) {
+                    logError(tr("error reading unmerged file: %1").arg(unmerged.fileName()));
+                }
                 unmerged.close();
             }
 
@@ -172,16 +200,25 @@ void XMLReader::parse(QIODevice *input)
     QString remoteDateStr=rootElemRemote.attribute("date");
     remoteID=rootElemRemote.attribute("identifier");
     remoteSaveTime=QDateTime::fromString(remoteDateStr, Qt::ISODate);
+    remoteDoc=docremote;
     settings->setRemoteSaveDateTime(remoteSaveTime);
 
     bool readsuccess=false;
     QDomDocument doc;
     if (readSuccessLocal&&readSuccessRemote) {
         auto rootElemLocal=doclocal.documentElement();
-        
         QString localID=rootElemLocal.attribute("identifier");
         QString localDateStr=rootElemLocal.attribute("date");
         QDateTime localDate=QDateTime::fromString(localDateStr, Qt::ISODate);
+#ifdef __EMSCRIPTEN__ // we only write total time info in wasm
+        int localTotalTime=rootElemLocal.elementsByTagName("totaltime").at(0).toElement().attribute("seconds").toInt();
+        int remoteTotalTime=rootElemRemote.elementsByTagName("totaltime").at(0).toElement().attribute("seconds").toInt();
+        if (remoteTotalTime!=localTotalTime) {
+            logError(tr("total time differs between local and remote file. remote: %1 seconds local: %2 seconds. RemoteDate: %3 LocalDate: %4").arg(remoteTotalTime).arg(localTotalTime).arg(remoteDateStr).arg(localDateStr));
+        } else if ((!global) && (remoteTotalTime==0)) {
+            logError(tr("total time in remote file is 0. RemoteDate: %1 LocalDate: %2").arg(remoteDateStr).arg(localDateStr));
+        }
+#endif
         if (remoteSaveTime==localDate) {
            if (remoteID==localID) {
              // standard case, just proceed
@@ -273,6 +310,10 @@ void XMLReader::fillSettingsFromDocument(const QDomDocument& doc, SCTimeXMLSetti
     QDomElement aktiveskontotag;
     QDomElement docElem = doc.documentElement();
     QString lastVersion = docElem.attribute("version");
+    if (!global && abtList)
+    {
+        abtList->setLoadedDocVersion(docElem.attribute("date"), docElem.attribute("identifier"));
+    }
     if (global)
     {
         settings->defaultcommentfiles.clear();
@@ -660,6 +701,18 @@ void XMLReader::fillSettingsFromDocument(const QDomDocument& doc, SCTimeXMLSetti
                             if (elem2.tagName() == "sortByCommentText")
                             {
                                 settings->setSortByCommentText((elem2.attribute("on") == "yes"));
+                            }
+                            if (elem2.tagName() == "shortcutsenabled")
+                            {
+                                settings->setShortcutsEnabled((elem2.attribute("on") == "yes"));
+                            }
+                            if (elem2.tagName() == "shortcutmodifier")
+                            {
+                                QString modifier = elem2.attribute("modifier");
+                                SCTimeXMLSettings::ShortcutModifierEnum sm = SCTimeXMLSettings::SM_CTRL;
+                                if (modifier == "CtrlShift") sm = SCTimeXMLSettings::SM_CTRLSHIFT;
+                                else if (modifier == "Alt") sm = SCTimeXMLSettings::SM_ALT;
+                                settings->setShortcutModifier(sm);
                             }
                             if (elem2.tagName() == "stayoffline")
                             {
