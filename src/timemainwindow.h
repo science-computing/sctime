@@ -240,6 +240,7 @@ public:
     void syncAll(std::function<void()> onFinished = nullptr);
     void updateBreakTime();
     void keepAlive();
+    void readTimeTrackerTasks();
     void updateApp(); // WASM only
     
   protected:

@@ -109,6 +109,7 @@
 #include "deletesettingsdialog.h"
 #include "syncofflinehelper.h"
 #include "datechangedialog.h"
+#include "timetrackertasksreader.h"
 #ifndef __EMSCRIPTEN__
 #include <QDesktopServices>
 #endif
@@ -328,6 +329,11 @@ TimeMainWindow::TimeMainWindow(Lock* lock, QNetworkAccessManager *networkAccessM
   QAction* readSettingsFromFileAction = new QAction(tr("Import"), this);
   connect(readSettingsFromFileAction, SIGNAL(triggered()), this, SLOT(readSettingsFromFile()));
 
+#ifdef TIMETRACKERTASKS
+  QAction* readTimeTrackerTasksAction = new QAction(tr("Import time tracker tasks"), this);
+  connect(readTimeTrackerTasksAction, SIGNAL(triggered()), this, SLOT(readTimeTrackerTasks()));
+#endif
+
   QAction* deleteSettingsAction = new QAction(tr("Delete settings files"), this);
   connect(deleteSettingsAction, SIGNAL(triggered()), this, SLOT(callDeleteSettingsDialog()));
 
@@ -430,6 +436,9 @@ TimeMainWindow::TimeMainWindow(Lock* lock, QNetworkAccessManager *networkAccessM
   kontomenu->addAction(copyLinkAction);
   kontomenu->addAction(pasteLinkAction);
   kontomenu->addAction(refreshAction);
+#ifdef TIMETRACKERTASKS
+  kontomenu->addAction(readTimeTrackerTasksAction);
+#endif
   settingsmenu->addAction(preferenceAction);
 #ifdef DOWNLOADDIALOG
   kontomenu->addAction(downloadSHAction);
@@ -3378,4 +3387,80 @@ void TimeMainWindow::toggleOnlineStatus() {
        settings->setRestSaveOffline(false);
        switchRestCurrentlyOffline(false);
     }
+}
+
+void TimeMainWindow::readTimeTrackerTasks() {
+    QDate dateFrom = abtList->getDatum();
+    QDate dateTo = dateFrom;
+
+    auto reader = new TimeTrackerTasksReader(networkAccessManager, dateFrom, dateTo, this);
+
+    connect(reader, &TimeTrackerTasksReader::tasksReceived, this, [=](const QList<TimeTrackerTask>& tasks) {
+        trace(tr("Received %1 sctimeTracker tasks").arg(tasks.size()));
+
+        QString abteilungstr = "_SctimeTracker_";
+        QString kontostr = "Tasks";
+
+        bool kontopers = abtList->getKontoFlags(abteilungstr, kontostr) & UK_PERSOENLICH;
+
+        QMap<QString,QMap<QString,int>> taskgroups;
+
+        // Process the tasks
+        for (const auto& task : tasks) {
+          taskgroups[task.label][task.comment]+=task.durationSeconds;
+
+          // Add time intervals to punch clock
+          int startSeconds = task.startTime.msecsSinceStartOfDay() / 1000;
+          int endSeconds = task.endTime.msecsSinceStartOfDay() / 1000;
+          m_punchClockList->push_back(PunchClockEntry(startSeconds, endSeconds));
+        }
+        for (auto labelIt = taskgroups.constBegin(); labelIt != taskgroups.constEnd(); ++labelIt) {
+            QString unterkontostr = labelIt.key();
+
+            for (auto commentIt = labelIt.value().constBegin(); commentIt != labelIt.value().constEnd(); ++commentIt) {
+                QString comment = commentIt.key();
+                int durationSeconds = commentIt.value();
+
+                if (durationSeconds >= 60) {
+                    int idx = abtList->insertEintrag(abteilungstr, kontostr, unterkontostr);
+
+                    UnterKontoEintrag entry;
+                    entry.kommentar = comment;
+                    entry.sekunden = durationSeconds;
+                    entry.sekundenAbzur = durationSeconds;
+                    if (kontopers) {
+                        entry.flags = UK_PERSOENLICH;
+                    } else {
+                        entry.flags = 0;
+                    }
+
+                    abtList->setEintrag(abteilungstr, kontostr, unterkontostr, idx, entry);
+                    abtList->setUnterKontoFlags(abteilungstr, kontostr, unterkontostr, IS_DISABLED, FLAG_MODE_NAND);
+                    if (kontopers) {
+                        abtList->setUnterKontoFlags(abteilungstr, kontostr, unterkontostr, UK_PERSOENLICH, FLAG_MODE_OR);
+                    }
+                }
+            }
+        }
+
+        kontoTree->refreshAllItemsInKonto(abteilungstr, kontostr);
+
+        saveLater();
+
+        reader->deleteLater();
+    });
+
+    connect(reader, &TimeTrackerTasksReader::failed, this, [=](const QString& errorMessage) {
+        trace(tr("Failed to fetch sctimeTracker tasks: %1").arg(errorMessage));
+        QMessageBox *msgbox=new QMessageBox(QMessageBox::Critical,
+            tr("sctime: Could not get tasks"),
+            errorMessage,
+            QMessageBox::Ok, this);
+        connect(msgbox, &QMessageBox::finished, &QMessageBox::deleteLater);
+        msgbox->open();
+        msgbox->raise();
+        reader->deleteLater();
+    });
+
+    reader->fetchTasks(false);
 }
