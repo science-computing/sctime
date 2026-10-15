@@ -200,6 +200,7 @@ void XMLReader::parse(QIODevice *input)
     QString remoteDateStr=rootElemRemote.attribute("date");
     remoteID=rootElemRemote.attribute("identifier");
     remoteSaveTime=QDateTime::fromString(remoteDateStr, Qt::ISODate);
+    remoteDoc=docremote;
     settings->setRemoteSaveDateTime(remoteSaveTime);
 
     bool readsuccess=false;
@@ -309,6 +310,10 @@ void XMLReader::fillSettingsFromDocument(const QDomDocument& doc, SCTimeXMLSetti
     QDomElement aktiveskontotag;
     QDomElement docElem = doc.documentElement();
     QString lastVersion = docElem.attribute("version");
+    if (!global && abtList)
+    {
+        abtList->setLoadedDocVersion(docElem.attribute("date"), docElem.attribute("identifier"));
+    }
     if (global)
     {
         settings->defaultcommentfiles.clear();

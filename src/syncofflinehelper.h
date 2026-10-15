@@ -55,6 +55,9 @@ signals:
        void finishedRemoteToLocal();
        void finishedLocalToRemote();
        void finished();
+       // emitted instead of writing to disk when a remote change conflicts with a date that
+       // is currently open in the UI, so the caller can offer the normal conflict dialog.
+       void openDateConflict(QDate date, bool global, QDomDocument remotesettings);
 
 private:
        QNetworkAccessManager *networkAccessManager;
@@ -65,6 +68,9 @@ private:
        TimeMainWindow* tmw;
        int partstodo;
        QSet<QDate> uncleanDates;
+       // server timestamp of the current sync; only persisted once all changed files were fetched
+       QDateTime m_pendingSyncTime;
+       QStringList m_failedFetches;
 };
 
 #endif
