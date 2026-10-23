@@ -56,21 +56,75 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
             return resultbuf
         }
 
-        async function loadFromParts(url, statusElement) {
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+        // Returns the part's bytes, or null if the part does not exist (HTTP 404).
+        // Any other failure (network error, 5xx, truncated body) throws.
+        async function fetchPart(partUrl, cacheMode) {
+            const resp = await fetch(partUrl, {cache: cacheMode})
+            if (resp.status === 404)
+                return null
+            if (!resp.ok)
+                throw new Error("HTTP " + resp.status + " for " + partUrl)
+            const buf = await resp.arrayBuffer()
+            // Content-Length is only comparable to the body size if no content encoding is applied
+            const expected = resp.headers.get("Content-Length")
+            if (expected !== null && !resp.headers.get("Content-Encoding") && buf.byteLength !== Number(expected))
+                throw new Error("Incomplete download of " + partUrl + ": got " + buf.byteLength + " of " + expected + " bytes")
+            return buf
+        }
+
+        async function fetchPartWithRetry(partUrl, forceReload) {
+            const MAX_TRIES = 4
+            for (let attempt = 0; ; attempt++) {
+                try {
+                    return await fetchPart(partUrl, (forceReload || attempt > 0) ? "reload" : "default")
+                } catch (e) {
+                    if (attempt + 1 >= MAX_TRIES)
+                        throw e
+                    console.warn("Retrying " + partUrl + ":", e)
+                    await sleep(500 * Math.pow(2, attempt))
+                }
+            }
+        }
+
+        async function loadFromParts(url, statusElement, forceReload) {
             let NUM_PARTS=99
-            let idx=0
-            let arr=[]
-            do {
-              let part = await fetch(url+".part"+String(idx).padStart(2, '0'))
-              idx++
-              let partab= await part.arrayBuffer()
-              var ok = (part.status>=200)&& (part.status<300)
-              if (ok) {
-                  arr.push(partab)
-              }
-              statusElement.innerHTML+="."
-            } while (ok && idx < NUM_PARTS)
+            const arr = []
+            for (let idx = 0; idx < NUM_PARTS; idx++) {
+                const part = await fetchPartWithRetry(url + ".part" + String(idx).padStart(2, '0'), forceReload)
+                if (part === null)
+                    break
+                arr.push(part)
+                statusElement.innerHTML += "."
+            }
+            if (arr.length === 0)
+                throw new Error("No parts of " + url + " found")
+            // all parts but the last have the size of the first one (see split command above)
+            const partSize = arr[0].byteLength
+            arr.forEach((p, i) => {
+                if (i < arr.length - 1 ? p.byteLength !== partSize : p.byteLength > partSize)
+                    throw new Error("Part " + i + " of " + url + " has unexpected size " + p.byteLength)
+            })
             return concatBuf(arr)
+        }
+
+        // Downloads and compiles the wasm module. Retries the whole download bypassing the
+        // HTTP cache if the result is incomplete or corrupt (e.g. flaky network, broken cache entry).
+        async function loadWasm(url, statusElement) {
+            const MAX_TRIES = 3
+            for (let attempt = 0; ; attempt++) {
+                try {
+                    const ab = await loadFromParts(url, statusElement, attempt > 0)
+                    return await WebAssembly.compile(ab)
+                } catch (e) {
+                    if (attempt + 1 >= MAX_TRIES)
+                        throw e
+                    console.warn("Loading " + url + " failed, retrying:", e)
+                    statusElement.innerHTML = "Loading failed, retrying..."
+                    await sleep(1000 * (attempt + 1))
+                }
+            }
         }
 
         async function init()
@@ -90,9 +144,7 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
                 showUi(spinner);
                 status.innerHTML = 'Loading...';
 
-                ab=await loadFromParts("sctime.wasm", status)
-
-                const wasmPromise = WebAssembly.compile(ab)
+                const wasmPromise = Promise.resolve(await loadWasm("sctime.wasm", status))
 
                 const instance = await qtLoad({
                     qt: {
@@ -116,6 +168,7 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
             } catch (e) {
                 console.error(e);
                 console.error(e.stack);
+                status.innerHTML = 'Loading failed (' + e.message + '). Please check your network connection and reload the page.';
             }
         }
     </script>
