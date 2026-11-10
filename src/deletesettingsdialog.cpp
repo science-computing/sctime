@@ -138,8 +138,7 @@ void DeleteSettingsDialog::performDelete() {
   trace("performDelete: persisting local filesystem changes");
   EM_ASM(
      window.sctimeDeleteFsSynced = false;
-     FS.syncfs(false, function (err) {
-         if (err) { console.error("sctime: FS.syncfs after delete failed: " + err); }
+     window.sctimeSyncfs(false, function (err) {
          window.sctimeDeleteFsSynced = true;
      });
   );

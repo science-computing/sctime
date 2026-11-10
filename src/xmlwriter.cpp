@@ -587,7 +587,7 @@ void XMLWriter::writeSettings(bool global) {
 #ifdef __EMSCRIPTEN__
   // sync previously written files in browser
   EM_ASM(
-      FS.syncfs(function (err) {});
+      window.sctimeSyncfs(false);
   );
 #endif
   // write files by rest api

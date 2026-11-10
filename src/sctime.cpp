@@ -97,6 +97,14 @@ static const QString help(QObject::tr(
 "\t\t\tis already running, the existing instance will be used for that.\n\n"
 "Please see the Help menu for further information (F1)!"));
 
+#ifdef __EMSCRIPTEN__
+// called from the JS wrapper window.sctimeSyncfs; takes ownership of msg
+extern "C" EMSCRIPTEN_KEEPALIVE void sctimeLogFsSyncError(char *msg) {
+  logError(QString("FS.syncfs failed: ") + QString::fromUtf8(msg));
+  free(msg);
+}
+#endif
+
 QString absolutePath(QString path) {
     if (path == "~" || path.startsWith("~/") || path.startsWith(QString("~") +
 		QDir::separator())) {
@@ -130,6 +138,10 @@ QString getMachineIdentifier() {
       machineIdFile.open(QIODevice::WriteOnly);
       machineIdFile.write(machineId.toUtf8());
       machineIdFile.close();
+      // persist right away, otherwise a closed tab loses the id and the next start looks like a different client
+      EM_ASM(
+        window.sctimeSyncfs(false);
+      );
     }
     else
     {
@@ -190,10 +202,22 @@ int main(int argc, char **argv ) {
 #ifdef __EMSCRIPTEN__
   // for WASM: mount persistent filesytem
   EM_ASM(
+     // all syncfs calls go through here so that failures end up in the sctime log
+     window.sctimeSyncfs = function (populate, done) {
+         FS.syncfs(populate, function (err) {
+             if (err) {
+                 var msg = (err.message || String(err)) + (populate ? " (load)" : " (save)");
+                 console.error("sctime: FS.syncfs failed: " + msg);
+                 _sctimeLogFsSyncError(stringToNewUTF8(msg));
+             }
+             if (done) done(err);
+         });
+     };
      FS.mkdir('/sctime');
      FS.mount(IDBFS, {}, '/sctime');
      sctimefsinitdone=false;
-     FS.syncfs(true, function (err) {sctimefsinitdone=true;});
+     sctimefsinitfailed=false;
+     window.sctimeSyncfs(true, function (err) {sctimefsinitfailed=!!err; sctimefsinitdone=true;});
   );
 #endif
 #ifdef WIN32
