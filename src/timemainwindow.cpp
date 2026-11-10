@@ -534,6 +534,17 @@ void TimeMainWindow::readInitialSetting() {
       
       return;
     }
+    static bool fsFailureReported = false;
+    if (!fsFailureReported && EM_ASM_INT({ return sctimefsinitfailed ? 1 : 0; })) {
+      fsFailureReported = true;
+      QMessageBox *msgbox=new QMessageBox(QMessageBox::Warning, tr("sctime: local storage"),
+          tr("The browser's local storage could not be loaded. Locally saved data and settings are not available, "
+             "and conflicts with the server may occur. Private browsing mode or restrictive browser settings are a common cause."),
+          QMessageBox::Ok, this);
+      connect(msgbox, &QMessageBox::finished, msgbox, &QMessageBox::deleteLater);
+      msgbox->open();
+      msgbox->raise();
+    }
     // in wasm we have the permanent offline mode. We try to load a local file first, to have information initialized if we have to stay offline
     XMLReader *reader=new XMLReader(settings, networkAccessManager, true, true, false, abtList, m_punchClockList);
     connect(reader, &XMLReader::settingsRead, finish);

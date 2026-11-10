@@ -134,7 +134,7 @@ void SyncOfflineHelper::syncAll()
 #ifdef __EMSCRIPTEN__
                   // sync previously written files in browser
                   EM_ASM(
-                    FS.syncfs(function (err) {});
+                    window.sctimeSyncfs(false);
                  );
 #endif
                   emit finished();
