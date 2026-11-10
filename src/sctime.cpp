@@ -174,9 +174,19 @@ bool openLinkInExistingInstance(QString accountlink) {
   return true;
 }
 
-void stopAppHard() {
+// true if this is the only live session in this browser (always false outside wasm)
+bool sessionLockHeld() {
+#ifdef __EMSCRIPTEN__
+  return EM_ASM_INT({ return window.sctimesessionlock === 1; });
+#else
+  return false;
+#endif
+}
+
+void stopAppHard(const QString& message) {
   qApp->exit();
   #ifdef __EMSCRIPTEN__
+      EM_ASM({ window.sctimeStopMessage = UTF8ToString($0); }, message.toUtf8().constData());
       emscripten_run_script(R"(
           // Clear all timers
           var highestTimeoutId = setTimeout(";", 0);
@@ -189,8 +199,10 @@ void stopAppHard() {
           }
           // Set custom content
           document.documentElement.innerHTML = "<html><head><title>sctime - session closed</title></head><body><h1>Session Closed</h1><p>This sctime session has been closed.</p><button onclick='window.location.reload()'>Restart</button></body></html>";
+          if (window.sctimeStopMessage) document.querySelector("p").textContent = window.sctimeStopMessage;
       )");
   #else
+      (void)message;
       exit(0);
   #endif
 }
@@ -218,6 +230,22 @@ int main(int argc, char **argv ) {
      sctimefsinitdone=false;
      sctimefsinitfailed=false;
      window.sctimeSyncfs(true, function (err) {sctimefsinitfailed=!!err; sctimefsinitdone=true;});
+     // 0 pending, 1 held by us, 2 held by another tab, 3 Web Locks unsupported
+     window.sctimesessionlock = 0;
+     if (navigator.locks) {
+         var lockTries = 0;
+         var tryLock = function () {
+             navigator.locks.request('sctime-session', {ifAvailable: true}, function (lock) {
+                 // the never-settling promise keeps the lock until the page goes away
+                 if (lock) { window.sctimesessionlock = 1; return new Promise(function () {}); }
+                 // a reloaded page may not have released the lock yet
+                 if (++lockTries < 20) setTimeout(tryLock, 100); else window.sctimesessionlock = 2;
+             });
+         };
+         tryLock();
+     } else {
+         window.sctimesessionlock = 3;
+     }
   );
 #endif
 #ifdef WIN32
