@@ -274,7 +274,9 @@ void XMLReader::parse(QIODevice *input)
     }
 
     // another client has written a file recently
-    if (readSuccessRemote && (clientId!=remoteclientid) && (remoteSaveTime.secsTo(QDateTime::currentDateTime())<150)) {
+    // while we hold the browser's session lock, a writer with our machine id can only be our own earlier session
+    bool ownEarlierSession = sessionLockHeld() && remoteID==machineID;
+    if (readSuccessRemote && !ownEarlierSession && (clientId!=remoteclientid) && (remoteSaveTime.secsTo(QDateTime::currentDateTime())<150)) {
         logError(tr("conflict detected. localid is %1 remoteid is %2").arg(clientId).arg(remoteclientid));
         emit conflictingClientRunning(abtList->getDatum(), global, docremote);
         if (!autoContinueOnConflict&&!continueThisConflict) {

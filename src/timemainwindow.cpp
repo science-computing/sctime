@@ -520,7 +520,7 @@ void TimeMainWindow::readInitialSetting() {
 #ifdef __EMSCRIPTEN__
     static int retryCount = 0;
     int initdone = EM_ASM_INT({
-        return sctimefsinitdone;
+        return sctimefsinitdone && window.sctimesessionlock !== 0;
     });
     if (!initdone) {
       if (retryCount<100) {
@@ -534,8 +534,14 @@ void TimeMainWindow::readInitialSetting() {
       
       return;
     }
+    if (EM_ASM_INT({ return window.sctimesessionlock === 2; })) {
+      // nothing was read or written yet, so the other session's data stays untouched
+      logError("another sctime session is running in this browser, exiting");
+      stopAppHard(tr("sctime is already running in another tab or window of this browser. Please switch to that one. Use Restart to try again."));
+      return;
+    }
     static bool fsFailureReported = false;
-    if (!fsFailureReported && EM_ASM_INT({ return sctimefsinitfailed ? 1 : 0; })) {
+    if (!fsFailureReported && EM_ASM_INT({ return sctimefsinitfailed; })) {
       fsFailureReported = true;
       QMessageBox *msgbox=new QMessageBox(QMessageBox::Warning, tr("sctime: local storage"),
           tr("The browser's local storage could not be loaded. Locally saved data and settings are not available, "
@@ -2961,6 +2967,16 @@ void TimeMainWindow::writeConflictDialog(QDate targetdate, bool global, const QB
         return;
   }
   QString remoteID=doc.documentElement().attribute("identifier");
+  if (remoteID==getMachineIdentifier() && sessionLockHeld()) {
+    // we are the only live session in this browser, so the conflicting write is from our own earlier session (e.g. before a reload)
+    trace(tr("ignoring conflict with own earlier session for %1").arg(targetdate.toString(Qt::ISODate)));
+    SyncOfflineHelper::removeUnmergedData(targetdate);
+    refreshKontoListe();
+    QTimer::singleShot(100, this, [this](){
+      saveWithTimeout(0);
+    });
+    return;
+  }
   if (remoteID==getMachineIdentifier()) {
     QMessageBox *msgbox=new ConflictDialogSameBrowser(this);
     m_conflictDialogOpenForDates[targetdate]=msgbox;
