@@ -683,6 +683,14 @@ void KontoTreeView::refreshItem(const QString& abt, const QString& ko,const QStr
 
   bool itemFound=(sucheItem(ALLE_KONTEN_STRING,abt,ko,uko,idx,topi,abti,koi,ukoi,eti));
 
+  if ((topi)&&(!abti)) abti=new KontoTreeItem(topi,displaymode, sortByCommentText, abt);
+  if ((abti)&&(!koi)) koi=new KontoTreeItem(abti, displaymode, sortByCommentText, ko);
+
+  bool disabled=((etl->getFlags()&IS_DISABLED)!=0);
+  if (disabled) {
+    return; // nothing to do
+  }
+
   if ((koi)&&(!ukoi)) {
     ukoi=new KontoTreeItem(koi, displaymode, sortByCommentText, uko);
     itemFound=true;
@@ -694,8 +702,6 @@ void KontoTreeView::refreshItem(const QString& abt, const QString& ko,const QStr
   ukoi->setBoldAccount((etl->getFlags())&UK_PERSOENLICH);
   ukoi->setBgColor(abtList->getBgColor(abt,ko,uko));
   ukoi->setGray();
-  if ((etl->getFlags()&IS_DISABLED)!=0)
-    return; // Deaktivierte Unterkonten nicht anfassen
 
   if (itemFound) {
     etiFound=(eti!=NULL);
