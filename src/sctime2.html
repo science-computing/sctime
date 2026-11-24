@@ -58,12 +58,62 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
 
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
+        const CACHE_NAME = "sctime-wasm-v1"
+
+        // Cache Storage is only available in secure contexts; without it we fall back to the HTTP cache.
+        async function openPartCache() {
+            if (!window.caches)
+                return null
+            try {
+                return await caches.open(CACHE_NAME)
+            } catch (e) {
+                console.warn("Cache Storage unavailable:", e)
+                return null
+            }
+        }
+
         // Returns the part's bytes, or null if the part does not exist (HTTP 404).
         // Any other failure (network error, 5xx, truncated body) throws.
-        async function fetchPart(partUrl, cacheMode) {
-            const resp = await fetch(partUrl, {cache: cacheMode})
-            if (resp.status === 404)
+        // Parts kept in Cache Storage are revalidated with a conditional request (a cheap 304), so a
+        // part that changed under the same URL is never served stale. If the network is unreachable,
+        // the stored copy is used.
+        async function fetchPart(partUrl, cache, forceReload) {
+            let cached = null
+            if (cache && !forceReload) {
+                try {
+                    cached = await cache.match(partUrl)
+                } catch (e) {
+                    console.warn("Cache lookup failed for " + partUrl + ":", e)
+                }
+            }
+            const headers = new Headers()
+            if (cached) {
+                const etag = cached.headers.get("ETag")
+                const lastModified = cached.headers.get("Last-Modified")
+                if (etag)
+                    headers.set("If-None-Match", etag)
+                if (lastModified)
+                    headers.set("If-Modified-Since", lastModified)
+            }
+            // With Cache Storage the HTTP cache is bypassed to avoid storing every part twice
+            const cacheMode = cache ? "no-store" : (forceReload ? "reload" : "default")
+            let resp
+            try {
+                resp = await fetch(partUrl, {headers, cache: cacheMode})
+            } catch (e) {
+                if (cached) {
+                    console.warn("Network unavailable, using stored copy of " + partUrl)
+                    return await cached.arrayBuffer()
+                }
+                throw e
+            }
+            if (resp.status === 304 && cached)
+                return await cached.arrayBuffer()
+            if (resp.status === 404) {
+                if (cache)
+                    await cache.delete(partUrl).catch(() => {})
                 return null
+            }
             if (!resp.ok)
                 throw new Error("HTTP " + resp.status + " for " + partUrl)
             const buf = await resp.arrayBuffer()
@@ -71,14 +121,31 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
             const expected = resp.headers.get("Content-Length")
             if (expected !== null && !resp.headers.get("Content-Encoding") && buf.byteLength !== Number(expected))
                 throw new Error("Incomplete download of " + partUrl + ": got " + buf.byteLength + " of " + expected + " bytes")
+            if (cache) {
+                const etag = resp.headers.get("ETag")
+                const lastModified = resp.headers.get("Last-Modified")
+                // Without a validator the entry could not be revalidated later
+                if (etag || lastModified) {
+                    const storedHeaders = new Headers()
+                    if (etag)
+                        storedHeaders.set("ETag", etag)
+                    if (lastModified)
+                        storedHeaders.set("Last-Modified", lastModified)
+                    try {
+                        await cache.put(partUrl, new Response(buf.slice(0), {headers: storedHeaders}))
+                    } catch (e) {
+                        console.warn("Could not store " + partUrl + " in Cache Storage:", e)
+                    }
+                }
+            }
             return buf
         }
 
-        async function fetchPartWithRetry(partUrl, forceReload) {
+        async function fetchPartWithRetry(partUrl, cache, forceReload) {
             const MAX_TRIES = 4
             for (let attempt = 0; ; attempt++) {
                 try {
-                    return await fetchPart(partUrl, (forceReload || attempt > 0) ? "reload" : "default")
+                    return await fetchPart(partUrl, cache, forceReload || attempt > 0)
                 } catch (e) {
                     if (attempt + 1 >= MAX_TRIES)
                         throw e
@@ -91,8 +158,9 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
         async function loadFromParts(url, statusElement, forceReload) {
             let NUM_PARTS=99
             const arr = []
+            const cache = await openPartCache()
             for (let idx = 0; idx < NUM_PARTS; idx++) {
-                const part = await fetchPartWithRetry(url + ".part" + String(idx).padStart(2, '0'), forceReload)
+                const part = await fetchPartWithRetry(url + ".part" + String(idx).padStart(2, '0'), cache, forceReload)
                 if (part === null)
                     break
                 arr.push(part)
@@ -106,13 +174,34 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
                 if (i < arr.length - 1 ? p.byteLength !== partSize : p.byteLength > partSize)
                     throw new Error("Part " + i + " of " + url + " has unexpected size " + p.byteLength)
             })
+            if (cache)
+                await removeStaleParts(cache, url, arr.length)
             return concatBuf(arr)
+        }
+
+        // Drops every stored part that is not part of the current wasm. Deploys put the version in the
+        // URL path, so parts of older versions live under different URLs and must be removed as well.
+        async function removeStaleParts(cache, url, numParts) {
+            try {
+                const keep = new Set()
+                for (let idx = 0; idx < numParts; idx++)
+                    keep.add(new URL(url + ".part" + String(idx).padStart(2, '0'), location.href).href)
+                for (const req of await cache.keys()) {
+                    if (!keep.has(req.url))
+                        await cache.delete(req)
+                }
+            } catch (e) {
+                console.warn("Cache cleanup failed:", e)
+            }
         }
 
         // Downloads and compiles the wasm module. Retries the whole download bypassing the
         // HTTP cache if the result is incomplete or corrupt (e.g. flaky network, broken cache entry).
         async function loadWasm(url, statusElement) {
             const MAX_TRIES = 3
+            // Ask for exemption from automatic eviction; the browser may silently decline
+            if (navigator.storage && navigator.storage.persist)
+                navigator.storage.persist().catch(() => {})
             for (let attempt = 0; ; attempt++) {
                 try {
                     const ab = await loadFromParts(url, statusElement, attempt > 0)

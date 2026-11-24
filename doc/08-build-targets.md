@@ -79,7 +79,12 @@ The WASM build ships its own HTML host page,
 [src/sctime2.html](../src/sctime2.html), which loads a **split** `.wasm`
 archive (`sctime.wasm.part*`, reassembled client-side) to improve HTTP cache
 hit rates across deploys — see the comment at the top of that file for the
-`split` command used to produce the parts. Companion pages `login.html`,
+`split` command used to produce the parts. The parts are additionally kept in
+the browser's Cache Storage (revalidated per load with a conditional request,
+and `navigator.storage.persist()` is requested), so they survive browser
+restarts and HTTP cache eviction. Since deploys carry the version in the URL
+path, stored parts of other versions are removed after each successful load.
+Companion pages `login.html`,
 `login_action.html`, and `refresh.html` implement the browser-side session
 login/keepalive flow referenced by `REFRESH_URL_PART`/`KEEPALIVE_URL_PART`
 in [globals.h](../src/globals.h).
