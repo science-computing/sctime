@@ -60,6 +60,11 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
 
         const CACHE_NAME = "sctime-wasm-v1"
 
+        // Directory (relative to this page or absolute) holding sctime.js, qtloader.js, qtlogo.svg and
+        // the wasm parts. The installer replaces the value below with the (versioned) static directory.
+        const STATIC_BASE = "."
+        const staticUrl = name => STATIC_BASE + "/" + name
+
         // Cache Storage is only available in secure contexts; without it we fall back to the HTTP cache.
         async function openPartCache() {
             if (!window.caches)
@@ -190,7 +195,7 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
         }
 
         // Small files needed to start the app; stored like the wasm parts so they work offline / when logged out
-        const ASSETS = ["sctime.js", "qtloader.js", "qtlogo.svg"]
+        const ASSETS = ["sctime.js", "qtloader.js", "qtlogo.svg"].map(staticUrl)
 
         async function fetchAsset(url) {
             const buf = await fetchPartWithRetry(url, await openPartCache(), false)
@@ -261,14 +266,14 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
                 showUi(spinner);
                 status.innerHTML = 'Loading...';
 
-                fetchAsset("qtlogo.svg")
+                fetchAsset(staticUrl("qtlogo.svg"))
                     .then(buf => document.querySelector('#qtlogo').src =
                         URL.createObjectURL(new Blob([buf], {type: "image/svg+xml"})))
                     .catch(e => console.warn("Could not load logo:", e))
-                await loadScript("sctime.js")
-                await loadScript("qtloader.js")
+                await loadScript(staticUrl("sctime.js"))
+                await loadScript(staticUrl("qtloader.js"))
 
-                const wasmPromise = Promise.resolve(await loadWasm("sctime.wasm", status))
+                const wasmPromise = Promise.resolve(await loadWasm(staticUrl("sctime.wasm"), status))
 
                 const instance = await qtLoad({
                     qt: {
