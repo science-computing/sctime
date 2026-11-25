@@ -29,7 +29,7 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
   <body onload="init()">
     <figure style="overflow:visible;" id="qtspinner">
       <center style="margin-top:1.5em; line-height:150%">
-        <img src="qtlogo.svg" width="320" height="200" style="display:block"></img>
+        <img id="qtlogo" width="320" height="200" style="display:block"></img>
         <strong>Qt for WebAssembly: sctime</strong>
         <div id="qtstatus"></div>
         <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
@@ -114,8 +114,18 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
                     await cache.delete(partUrl).catch(() => {})
                 return null
             }
-            if (!resp.ok)
-                throw new Error("HTTP " + resp.status + " for " + partUrl)
+            // A login page (redirect or HTML) or an error status must neither be used nor stored;
+            // a previously stored copy is still good (the version is part of the URL).
+            const badResponse = !resp.ok ? "HTTP " + resp.status
+                : (resp.redirected || (resp.headers.get("Content-Type") || "").startsWith("text/html")) ? "unexpected response (login page?)"
+                : null
+            if (badResponse) {
+                if (cached) {
+                    console.warn("Got " + badResponse + " for " + partUrl + ", using stored copy")
+                    return await cached.arrayBuffer()
+                }
+                throw new Error(badResponse + " for " + partUrl)
+            }
             const buf = await resp.arrayBuffer()
             // Content-Length is only comparable to the body size if no content encoding is applied
             const expected = resp.headers.get("Content-Length")
@@ -179,11 +189,29 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
             return concatBuf(arr)
         }
 
-        // Drops every stored part that is not part of the current wasm. Deploys put the version in the
-        // URL path, so parts of older versions live under different URLs and must be removed as well.
+        // Small files needed to start the app; stored like the wasm parts so they work offline / when logged out
+        const ASSETS = ["sctime.js", "qtloader.js", "qtlogo.svg"]
+
+        async function fetchAsset(url) {
+            const buf = await fetchPartWithRetry(url, await openPartCache(), false)
+            if (buf === null)
+                throw new Error("Could not load " + url)
+            return buf
+        }
+
+        // Inline injection keeps document.currentScript.src empty, so emscripten resolves
+        // relative file names against the page just as with <script src>.
+        async function loadScript(url) {
+            const script = document.createElement("script")
+            script.textContent = new TextDecoder().decode(await fetchAsset(url))
+            document.head.appendChild(script)
+        }
+
+        // Drops every stored entry that is not part of the current version. Deploys put the version in the
+        // URL path, so entries of older versions live under different URLs and must be removed as well.
         async function removeStaleParts(cache, url, numParts) {
             try {
-                const keep = new Set()
+                const keep = new Set(ASSETS.map(a => new URL(a, location.href).href))
                 for (let idx = 0; idx < numParts; idx++)
                     keep.add(new URL(url + ".part" + String(idx).padStart(2, '0'), location.href).href)
                 for (const req of await cache.keys()) {
@@ -233,6 +261,13 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
                 showUi(spinner);
                 status.innerHTML = 'Loading...';
 
+                fetchAsset("qtlogo.svg")
+                    .then(buf => document.querySelector('#qtlogo').src =
+                        URL.createObjectURL(new Blob([buf], {type: "image/svg+xml"})))
+                    .catch(e => console.warn("Could not load logo:", e))
+                await loadScript("sctime.js")
+                await loadScript("qtloader.js")
+
                 const wasmPromise = Promise.resolve(await loadWasm("sctime.wasm", status))
 
                 const instance = await qtLoad({
@@ -261,7 +296,5 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
             }
         }
     </script>
-    <script src="sctime.js"></script>
-    <script type="text/javascript" src="qtloader.js"></script>
   </body>
 </html>
